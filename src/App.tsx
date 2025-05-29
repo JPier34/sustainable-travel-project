@@ -13,8 +13,8 @@ import { ethers } from "ethers";
 import "./App.css";
 
 // L'indirizzo wallet di Gianni (testnet Sepolia)
-const TRAVEL_AGENT_ADDRESS = "0xABCDEF0123456789abcdef0123456789ABCDEF01";
-// Sostituisci con l’indirizzo reale di Gianni (su Sepolia)
+const TRAVEL_AGENT_ADDRESS = import.meta.env.VITE_TRAVEL_AGENT_ADDRESS;
+// Indirizzo (test) di Gianni (su Sepolia)
 
 const App: React.FC = () => {
   // 1. Stato account

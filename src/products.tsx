@@ -10,24 +10,25 @@ export type Product = {
 export const PRODUCTS: Product[] = [
   {
     id: "pacco-viaggio-eco1",
-    name: "Pacchetto Eco Azzurro",
+    name: "Aloha, Hawaii!",
     description:
-      "3 notti in eco-resort, visita comunitaria e trekking sostenibile",
-    priceInETH: "0.01",
+      "Due settimane nel paradiso hawaiano con un pacchetto che include voli, soggiorno in hotel e tour sostenibili.",
+    priceInETH: "0.001",
     imageUrl: "https://ipfs.io/ipfs/QmExampleHash1", // sostituisci con hash reale IPFS
   },
   {
     id: "pacco-viaggio-eco2",
-    name: "Pacchetto Foresta Verde",
-    description: "2 notti in lodge eco-friendly, incontro con artigiani locali",
-    priceInETH: "0.015",
+    name: "Islanda Verde",
+    description: "7 notti in lodge eco-friendly, tour dei vulcani e cascate",
+    priceInETH: "0.0015",
     imageUrl: "https://ipfs.io/ipfs/QmExampleHash2", // sostituisci con hash reale IPFS
   },
   {
     id: "pacco-viaggio-eco3",
-    name: "Pacchetto Montagna Pulita",
-    description: "Weekend in rifugio sostenibile con guida ambientale",
-    priceInETH: "0.02",
+    name: "Australian Outback",
+    description:
+      "Un'avventura di 10 giorni tra natura selvaggia, fauna unica e cultura aborigena.",
+    priceInETH: "0.002",
     imageUrl: "https://ipfs.io/ipfs/QmExampleHash3", // sostituisci con hash reale IPFS
   },
 ];
