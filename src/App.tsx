@@ -15,6 +15,9 @@ import "./App.css";
 
 // L'indirizzo wallet di Gianni (testnet Sepolia)
 const TRAVEL_AGENT_ADDRESS = import.meta.env.VITE_TRAVEL_AGENT_ADDRESS;
+if (!TRAVEL_AGENT_ADDRESS || !ethers.isAddress(TRAVEL_AGENT_ADDRESS)) {
+  throw new Error("Indirizzo del destinatario non valido o mancante.");
+}
 // Indirizzo (test) di Gianni (su Sepolia)
 
 const App: React.FC = () => {
@@ -51,7 +54,7 @@ const App: React.FC = () => {
 
       // 2. invia transazione
       const tx = await sendTransactionAsync({
-        to: TRAVEL_AGENT_ADDRESS,
+        to: TRAVEL_AGENT_ADDRESS as `0x${string}`,
         value: amountWei,
       });
 
