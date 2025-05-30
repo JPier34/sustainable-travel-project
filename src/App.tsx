@@ -3,6 +3,7 @@ import type { Product } from "./products";
 import { PRODUCTS } from "./products";
 import ProductCard from "./ProductCard";
 import SuccessModal from "./SuccessModal";
+import HomePage from "./HomePage";
 import {
   useAccount,
   useBalance,
@@ -82,82 +83,86 @@ const App: React.FC = () => {
   const [boughtProduct, setBoughtProduct] = useState<Product | null>(null);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center py-8 px-4">
-      <h1 className="text-4xl font-bold text-green-700 mb-8">
-        GreenChain Travel Marketplace
-      </h1>
+    <>
+      {/* HomePage contiene il layout e lo sfondo */}
+      <HomePage />
+      <div className="min-h-screen bg-gray-50 flex flex-col items-center py-8 px-4">
+        <h1 className="text-4xl font-bold text-green-700 mb-8">
+          GreenChain Travel Marketplace
+        </h1>
 
-      {/* Barra di connessione / logout */}
-      <div className="w-full max-w-md flex flex-col items-center mb-8 space-y-4">
-        <ConnectButton /> {/* RainbowKit ConnectButton */}
-        {isConnected && (
-          <button
-            onClick={() => disconnect()}
-            className="mt-2 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-          >
-            Logout
-          </button>
-        )}
-        {isConnected && balanceData && (
-          <p className="text-gray-700">
-            <span className="font-semibold">Il tuo saldo:</span>{" "}
-            {parseFloat(formatEther(balanceData.value)).toFixed(4)}{" "}
-            {balanceData.symbol}
-          </p>
-        )}
-      </div>
-
-      {/* Messaggi di errore o hash tx */}
-      {errorMessage && (
-        <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md max-w-md w-full">
-          {errorMessage}
+        {/* Barra di connessione / logout */}
+        <div className="w-full max-w-md flex flex-col items-center mb-8 space-y-4">
+          <ConnectButton /> {/* RainbowKit ConnectButton */}
+          {isConnected && (
+            <button
+              onClick={() => disconnect()}
+              className="mt-2 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+            >
+              Logout
+            </button>
+          )}
+          {isConnected && balanceData && (
+            <p className="text-gray-700">
+              <span className="font-semibold">Il tuo saldo:</span>{" "}
+              {parseFloat(formatEther(balanceData.value)).toFixed(4)}{" "}
+              {balanceData.symbol}
+            </p>
+          )}
         </div>
-      )}
-      {txHash && (
-        <div className="mb-4 p-3 bg-green-100 text-green-700 rounded-md max-w-md w-full">
-          Transazione inviata con hash:{" "}
-          <a
-            href={`https://sepolia.etherscan.io/tx/${txHash}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline"
-          >
-            {txHash.slice(0, 6) + "..." + txHash.slice(-4)}
-          </a>
-        </div>
-      )}
 
-      {/* Gallery dei prodotti */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl">
-        {PRODUCTS.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            isBuying={isBuying}
-            onBuy={handleBuy}
+        {/* Messaggi di errore o hash tx */}
+        {errorMessage && (
+          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md max-w-md w-full">
+            {errorMessage}
+          </div>
+        )}
+        {txHash && (
+          <div className="mb-4 p-3 bg-green-100 text-green-700 rounded-md max-w-md w-full">
+            Transazione inviata con hash:{" "}
+            <a
+              href={`https://sepolia.etherscan.io/tx/${txHash}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+            >
+              {txHash.slice(0, 6) + "..." + txHash.slice(-4)}
+            </a>
+          </div>
+        )}
+
+        {/* Gallery dei prodotti */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl">
+          {PRODUCTS.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              isBuying={isBuying}
+              onBuy={handleBuy}
+            />
+          ))}
+        </div>
+
+        {/* Modal di successo */}
+        {showSuccessModal && boughtProduct && txHash && (
+          <SuccessModal
+            product={boughtProduct}
+            txHash={txHash}
+            onClose={() => {
+              setShowSuccessModal(false);
+              setBoughtProduct(null);
+              setTxHash(null);
+            }}
           />
-        ))}
+        )}
+
+        {/* Footer */}
+        <footer className="mt-12 text-gray-500 text-sm">
+          &copy; {new Date().getFullYear()} GreenTravel. Tutti i diritti
+          riservati.
+        </footer>
       </div>
-
-      {/* Modal di successo */}
-      {showSuccessModal && boughtProduct && txHash && (
-        <SuccessModal
-          product={boughtProduct}
-          txHash={txHash}
-          onClose={() => {
-            setShowSuccessModal(false);
-            setBoughtProduct(null);
-            setTxHash(null);
-          }}
-        />
-      )}
-
-      {/* Footer */}
-      <footer className="mt-12 text-gray-500 text-sm">
-        &copy; {new Date().getFullYear()} GreenTravel. Tutti i diritti
-        riservati.
-      </footer>
-    </div>
+    </>
   );
 };
 
