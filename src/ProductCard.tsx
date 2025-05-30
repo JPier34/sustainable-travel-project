@@ -2,10 +2,10 @@ import React from "react";
 import type { Product } from "./products";
 import "./App.css";
 
-interface ProductCardProps {
-  product: Product;
+interface ProductCardProps<T = object> {
+  product: Product<T>;
   isBuying: boolean;
-  onBuy: (product: Product) => void;
+  onBuy: (product: Product<T>) => void;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -26,6 +26,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <h2 className="text-xl font-semibold text-gray-800">{product.name}</h2>
         <p className="text-gray-600 text-sm mt-1 flex-grow">
           {product.description}
+        </p>
+
+        <p className="text-gray-500 text-xs mt-2">
+          Disponibile in data {product.date}
         </p>
 
         <div className="mt-4 flex items-center justify-between">

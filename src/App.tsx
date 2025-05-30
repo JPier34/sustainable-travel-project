@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import type { Product } from "./products";
 import { PRODUCTS } from "./products";
 import ProductCard from "./ProductCard";
+import SuccessModal from "./SuccessModal";
 import {
   useAccount,
   useBalance,
@@ -9,7 +10,7 @@ import {
   useSendTransaction,
 } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { ethers } from "ethers";
+import { ethers, formatEther } from "ethers";
 import "./App.css";
 
 // L'indirizzo wallet di Gianni (testnet Sepolia)
@@ -62,7 +63,13 @@ const App: React.FC = () => {
     } finally {
       setIsBuying(false);
     }
+    setBoughtProduct(product);
+    setShowSuccessModal(true);
   };
+
+  // Modal per successful purchase
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [boughtProduct, setBoughtProduct] = useState<Product | null>(null);
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-8 px-4">
@@ -84,7 +91,8 @@ const App: React.FC = () => {
         {isConnected && balanceData && (
           <p className="text-gray-700">
             <span className="font-semibold">Il tuo saldo:</span>{" "}
-            {balanceData.formatted} {balanceData.symbol}
+            {parseFloat(formatEther(balanceData.value)).toFixed(4)}{" "}
+            {balanceData.symbol}
           </p>
         )}
       </div>
@@ -99,7 +107,7 @@ const App: React.FC = () => {
         <div className="mb-4 p-3 bg-green-100 text-green-700 rounded-md max-w-md w-full">
           Transazione inviata con hash:{" "}
           <a
-            href={`https://goerli.etherscan.io/tx/${txHash}`}
+            href={`https://sepolia.etherscan.io/tx/${txHash}`}
             target="_blank"
             rel="noopener noreferrer"
             className="underline"
@@ -120,6 +128,19 @@ const App: React.FC = () => {
           />
         ))}
       </div>
+
+      {/* Modal di successo */}
+      {showSuccessModal && boughtProduct && txHash && (
+        <SuccessModal
+          product={boughtProduct}
+          txHash={txHash}
+          onClose={() => {
+            setShowSuccessModal(false);
+            setBoughtProduct(null);
+            setTxHash(null);
+          }}
+        />
+      )}
 
       {/* Footer */}
       <footer className="mt-12 text-gray-500 text-sm">
