@@ -13,13 +13,17 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { ethers, formatEther } from "ethers";
 import "./App.css";
 
+console.log(
+  "VITE_TRAVEL_AGENT_ADDRESS:",
+  import.meta.env.VITE_TRAVEL_AGENT_ADDRESS
+);
+
 // L'indirizzo wallet di Gianni (testnet Sepolia)
 const TRAVEL_AGENT_ADDRESS = import.meta.env
   .VITE_TRAVEL_AGENT_ADDRESS as `0x${string}`;
 if (!TRAVEL_AGENT_ADDRESS || !ethers.isAddress(TRAVEL_AGENT_ADDRESS)) {
   throw new Error("Indirizzo del destinatario non valido o mancante.");
 }
-console.log("TRAVEL_AGENT_ADDRESS from .env:", TRAVEL_AGENT_ADDRESS);
 
 // Indirizzo (test) di Gianni (su Sepolia)
 
