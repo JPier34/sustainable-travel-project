@@ -19,6 +19,8 @@ const TRAVEL_AGENT_ADDRESS = import.meta.env
 if (!TRAVEL_AGENT_ADDRESS || !ethers.isAddress(TRAVEL_AGENT_ADDRESS)) {
   throw new Error("Indirizzo del destinatario non valido o mancante.");
 }
+console.log("TRAVEL_AGENT_ADDRESS from .env:", TRAVEL_AGENT_ADDRESS);
+
 // Indirizzo (test) di Gianni (su Sepolia)
 
 const App: React.FC = () => {
