@@ -8,9 +8,11 @@ import App from "./App";
 import "@rainbow-me/rainbowkit/styles.css";
 import "./index.css";
 
+const projectId = "b59e5f85e046d4449303db40b05b5ed5";
+
 const config = getDefaultConfig({
   appName: "Sustainable Travel dApp",
-  projectId: "b59e5f85e046d4449303db40b05b5ed5",
+  projectId: projectId,
   chains: [sepolia],
   transports: {
     [sepolia.id]: http(),
@@ -22,9 +24,9 @@ const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <WagmiProvider config={config}>
+    <WagmiProvider config={config} reconnectOnMount={false}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>
+        <RainbowKitProvider modalSize="compact">
           <App />
         </RainbowKitProvider>
       </QueryClientProvider>
