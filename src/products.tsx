@@ -15,7 +15,7 @@ export const PRODUCTS: Product[] = [
       "Due settimane nel paradiso hawaiano con un pacchetto che include voli, soggiorno in hotel e tour sostenibili.",
     priceInETH: "0.001",
     imageUrl:
-      "https://gateway.pinata.cloud/ipfs/bafkreihgazicw64iafj2g7t6d2c32ktmuuqiujcuw47lbzg3d5evdj26ra",
+      "https://ipfs.io/ipfs/bafkreihgazicw64iafj2g7t6d2c32ktmuuqiujcuw47lbzg3d5evdj26ra",
   },
   {
     id: "pacco-viaggio-eco2",
@@ -23,7 +23,7 @@ export const PRODUCTS: Product[] = [
     description: "7 notti in lodge eco-friendly, tour dei vulcani e cascate",
     priceInETH: "0.0015",
     imageUrl:
-      "https://gateway.pinata.cloud/ipfs/bafkreicjswsgf5krsmicq7wiqhfj6jxwmouk5xnfqiapqqoewcu6hgbxue",
+      "https://ipfs.io/ipfs/bafkreicjswsgf5krsmicq7wiqhfj6jxwmouk5xnfqiapqqoewcu6hgbxue",
   },
   {
     id: "pacco-viaggio-eco3",
@@ -32,6 +32,6 @@ export const PRODUCTS: Product[] = [
       "Un'avventura ad impatto 0 di 10 giorni tra natura selvaggia, fauna unica e cultura aborigena.",
     priceInETH: "0.002",
     imageUrl:
-      "https://gateway.pinata.cloud/ipfs/bafkreieewflmjgu7t6fkptcvyu57ahedsxsvf74shsmqmckd7crhrcgufa",
+      "https://ipfs.io/ipfs/bafkreieewflmjgu7t6fkptcvyu57ahedsxsvf74shsmqmckd7crhrcgufa",
   },
 ];
