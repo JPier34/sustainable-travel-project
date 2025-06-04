@@ -167,14 +167,14 @@
 
 /* Stile per il contenitore delle immagini a destra */
 .homepage-right-images {
-  position: absolute; /* Manteniamo absolute per posizionarlo nell'area destra della pagina */
-  top: 0px; /* Posizione y dal Figma per Group 7 */
-  left: 819.44px; /* Posizione x dal Figma per Group 7 */
-  /* Impostiamo la larghezza alla sua dimensione nel Figma, anche se si estende oltre il contenitore root */
-  width: 1106.64px; /* Larghezza dal Figma per Group 7 */
-  height: 1306.21px; /* Altezza dal Figma per Group 7 */
+  position: absolute;
+  top: 0px;
+  left: 819.44px;
+
+  width: 1106.64px;
+  height: 1306.21px;
   z-index: 0;
-  overflow: hidden; /* Assicuriamoci che il contenuto che esce da QUESTO contenitore sia nascosto, non dal root */
+  overflow: hidden;
 
   /* Layout Grid per posizionare i due frame interni */
   display: grid;
