@@ -14,11 +14,6 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { ethers, formatEther } from "ethers";
 import "./App.css";
 
-console.log(
-  "VITE_TRAVEL_AGENT_ADDRESS:",
-  import.meta.env.VITE_TRAVEL_AGENT_ADDRESS
-);
-
 // L'indirizzo wallet di Gianni (testnet Sepolia)
 const TRAVEL_AGENT_ADDRESS = import.meta.env
   .VITE_TRAVEL_AGENT_ADDRESS as `0x${string}`;
@@ -86,9 +81,11 @@ const App: React.FC = () => {
     <>
       {/* HomePage contiene il layout e lo sfondo */}
       <HomePage />
+
+      {/* Contenuto principale dell'app */}
       <div className="min-h-screen bg-gray-50 flex flex-col items-center py-8 px-4">
-        <h1 className="text-4xl font-bold text-green-700 mb-8">
-          GreenChain Travel Marketplace
+        <h1 className="text-4xl font-bold text-green-700 mb-8 homepage-title">
+          Le nostre offerte di viaggio
         </h1>
 
         {/* Barra di connessione / logout */}

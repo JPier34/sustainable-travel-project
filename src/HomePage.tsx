@@ -1,79 +1,92 @@
-export default function HomePage() {
+import React from "react";
+import "./HomePage.css";
+import logo from "./assets/logo.jpeg";
+import rectangle47 from "./assets/rectangle47.svg";
+import rectangle45 from "./assets/rectangle45.svg";
+import rectangle48 from "./assets/rectangle48.svg";
+import rectangle53 from "./assets/rectangle53.svg";
+import rectangle52 from "./assets/rectangle52.svg";
+import rectangle51 from "./assets/rectangle51.svg";
+import rectangle49 from "./assets/rectangle49.svg";
+
+const HomePage: React.FC = () => {
   return (
-    <main className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative h-[60vh] bg-gray-100">
-        <div className="absolute inset-0">
+    <div className="homepage-root">
+      {/* Gradiente di sfondo */}
+      <div className="homepage-bg-gradient"></div>
+
+      {/* Contenuto principale a sinistra */}
+      <div className="homepage-content">
+        <div className="homepage-logo-circle">
+          <img src={logo} alt="Golobe Logo" className="homepage-logo" />
+        </div>
+        <div className="homepage-title-section">
+          <h1 className="homepage-title">Orizon.</h1>
+          <h2 className="homepage-subtitle">Il tuo viaggio.</h2>
+        </div>
+        <div className="homepage-stats">
+          <div className="homepage-stat">
+            <span className="homepage-stat-number"></span>
+            <span className="homepage-stat-label"></span>
+          </div>
+          <div className="homepage-stat">
+            <span className="homepage-stat-number"></span>
+            <span className="homepage-stat-label"></span>
+          </div>
+        </div>
+        <div className="homepage-createdby">
+          <span className="homepage-createdby-text">Created by</span>
+          <span className="homepage-signature-text">J.Pier</span>
+        </div>
+      </div>
+
+      {/* Contenitore per le immagini di sfondo a destra */}
+      <div className="homepage-right-images">
+        {/* Reintrodurre il Frame 2608798 con le immagini singole dei rettangoli */}
+        <div className="homepage-frame-2608798">
           <img
-            src="./images/hawaii.jpg"
-            alt=""
-            className="object-cover w-full h-full"
+            src={rectangle47}
+            alt="Background image 1"
+            className="homepage-rectangle-47"
+          />
+          <img
+            src={rectangle45}
+            alt="Background image 2"
+            className="homepage-rectangle-45"
+          />
+          <img
+            src={rectangle48}
+            alt="Background image 3"
+            className="homepage-rectangle-48"
           />
         </div>
-        <div className="absolute inset-0 bg-black/30" />
-        <div className="relative h-full flex items-center justify-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white">
-            Our Story
-          </h1>
-        </div>
-      </section>
 
-      {/* Story Content */}
-      <section className="max-w-4xl mx-auto px-4 py-16">
-        <div className="flex flex-col md:flex-row gap-12 items-center">
-          <div className="md:w-1/2">
-            <img
-              src="./images/Islanda.jpg"
-              alt="Lily Smith - Owner"
-              width={400}
-              height={500}
-              className="rounded-lg shadow-lg"
-            />
-          </div>
-          <div className="md:w-1/2 space-y-6">
-            <h2 className="text-3xl font-semibold">Lily Smith</h2>
-            <p className="text-gray-600 italic">Owner</p>
-            <p className="text-gray-700">
-              Our Blooms was founded in honor of Lily Smith's loving aunts,
-              Teresa and Beth.
-            </p>
-            <p className="text-gray-700">
-              Lily's journey with flowers began in the heart of Oregon, amidst
-              the flourishing fields of her aunts' flower farm. It was there,
-              surrounded by the abundance of nature, that she discovered her
-              passion for floral design. From learning the names of each bloom
-              to understanding the delicate balance of a bouquet, she absorbed
-              the artistry of flowers like the rich Oregon soil.
-            </p>
-            <p className="text-gray-700">
-              Bloom & Co. is the expression of that lifelong passion, a place
-              where her love for flowers translates into beautifully curated
-              arrangements that bring joy and elegance to your spaces.
-            </p>
-            <p className="text-gray-700">
-              From humble beginnings, Bloom&Co has grown into a beloved local
-              destination, known for its artistic arrangements, personal
-              service, and commitment to quality.
-            </p>
-          </div>
+        {/* Frame 2608799 (immagini a colonna) - Questo rimane */}
+        <div className="homepage-frame-2608799">
+          <img
+            src={rectangle53}
+            alt="Background image 4"
+            className="homepage-rectangle-53"
+          />
+          <img
+            src={rectangle52}
+            alt="Background image 5"
+            className="homepage-rectangle-52"
+          />
+          <img
+            src={rectangle51}
+            alt="Background image 6"
+            className="homepage-rectangle-51"
+          />
+          <img
+            src={rectangle49}
+            alt="Background image 7"
+            className="homepage-rectangle-49"
+          />
         </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-gray-50 py-16">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-semibold mb-6">
-            Discover how we can add a touch of natural beauty to your next
-            event.
-          </h2>
-          <a
-            href="/contact"
-            className="inline-block bg-orange-500 text-white px-8 py-4 rounded-full font-semibold hover:bg-orange-600 transition-colors mb-8"
-          >
-            BOOK A CONSULTATION
-          </a>
-        </div>
-      </section>
-    </main>
+      </div>
+    </div>
   );
-}
+};
+
+export default HomePage;
