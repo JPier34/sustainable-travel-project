@@ -22,7 +22,9 @@ const HomePage: React.FC = () => {
         </div>
         <div className="homepage-title-section">
           <h1 className="homepage-title">Orizon.</h1>
-          <h2 className="homepage-subtitle">Il tuo viaggio.</h2>
+          <h2 className="homepage-subtitle">
+            Il <em>tuo</em> viaggio.
+          </h2>
         </div>
         <div className="homepage-stats">
           <div className="homepage-stat">

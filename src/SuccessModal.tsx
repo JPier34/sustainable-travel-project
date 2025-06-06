@@ -16,15 +16,14 @@ const SuccessModal: React.FC<Props> = ({ product, txHash, onClose }) => {
         </h2>
 
         <img
-          src={product.imageUrl}
-          alt={product.name}
+          src={product.image}
+          alt={product.title}
           className="w-48 h-48 object-cover mx-auto rounded-lg mb-6 shadow"
         />
 
         <p className="text-2xl font-semibold text-gray-800 mb-2">
-          {product.name}
+          {product.title}
         </p>
-        <p className="text-lg text-gray-600 mb-4">{product.priceInETH} ETH</p>
 
         <a
           href={`https://sepolia.etherscan.io/tx/${txHash}`}
@@ -34,7 +33,11 @@ const SuccessModal: React.FC<Props> = ({ product, txHash, onClose }) => {
         >
           Visualizza su Etherscan
         </a>
-
+        <p className="text-lg text-gray-600 mb-4">{product.price}</p>
+        <p className="mt-4 text-lg text-gray-600">
+          Grazie per aver scelto un viaggio sostenibile! Il tuo acquisto è stato
+          registrato sulla blockchain.
+        </p>
         <div className="mt-8">
           <button
             onClick={onClose}
