@@ -1,0 +1,242 @@
+/* Importazione dei font */
+/* Montserrat da Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap");
+
+/* Permanent Marker da Google Fonts (alternativa impattante) */
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
+
+/* Great Vibes da Google Fonts (font corsivo per firma) */
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
+
+/* Nuovo font suggerito: Pacifico (per uno stile più moderno per la firma) */
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+/* Nuovo font suggerito: Dancing Script (per la firma) */
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap");
+
+/* Nuovo font suggerito: Caveat (per la firma) */
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap");
+
+/* Nuovo font suggerito: Zeyada (per la firma) */
+@import url("https://fonts.googleapis.com/css2?family=Zeyada&display=swap");
+
+:root {
+  font-family: Montserrat, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.homepage-root {
+  position: relative;
+  width: auto;
+  height: 960px;
+  overflow: hidden;
+  background: linear-gradient(
+    120deg,
+    #8dd3bb 0%,
+    rgba(141, 211, 187, 0.14) 68%,
+    rgba(141, 211, 187, 0) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.homepage-bg-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background: linear-gradient(
+    120deg,
+    #8dd3bb 0%,
+    rgba(141, 211, 187, 0.14) 68%,
+    rgba(141, 211, 187, 0) 100%
+  );
+}
+
+.homepage-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  background: #fff;
+  border-radius: 32px;
+  box-shadow: 0 8px 50px 0 rgba(17, 34, 17, 0.01);
+  padding: 64px 90px;
+  margin-left: 90px;
+
+  @media (max-width: 770px) {
+    margin: auto;
+    justify-content: center;
+    margin-top: 6.5rem;
+    padding: 32px;
+  }
+}
+
+.homepage-logo-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 50%;
+  width: 160px;
+  height: 160px;
+  box-shadow: 4px 9px 50px 0 rgba(17, 34, 17, 0.01);
+  margin-bottom: 24px;
+}
+
+.homepage-logo {
+  width: -webkit-fill-available;
+  height: auto;
+}
+
+.homepage-title-section {
+  margin-bottom: 24px;
+}
+
+.homepage-title,
+.homepage-subtitle {
+  font-family: "Permanent Marker", cursive; /* Usa Permanent Marker */
+  font-size: 70px;
+  font-weight: 400; /* Permanent Marker ha solo un peso */
+  color: #112211;
+  margin: 0;
+}
+
+.homepage-subtitle {
+  opacity: 0.8;
+}
+
+.homepage-stats {
+  display: flex;
+  gap: 64px;
+  margin-bottom: 24px;
+}
+
+.homepage-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.homepage-stat-number {
+  font-family: "Permanent Marker", cursive; /* Usa Permanent Marker */
+  font-size: 80px;
+  font-weight: 400; /* Permanent Marker ha solo un peso */
+  color: #112211;
+}
+
+.homepage-stat-label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 30px;
+  color: #112211;
+  opacity: 0.6;
+}
+
+.homepage-createdby {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.homepage-createdby-text {
+  font-family: "Montserrat", sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: #000;
+  opacity: 0.6;
+}
+
+/* Stile per il testo della firma (J.Pier) con font Zeyada */
+.homepage-signature-text {
+  font-family: "Zeyada", cursive;
+  font-size: 36px;
+  font-weight: 400;
+  color: #13992a;
+  opacity: 1;
+  margin-left: 8px;
+}
+
+/* Stile per il contenitore delle immagini a destra */
+.homepage-right-images {
+  position: absolute;
+  top: 0px;
+  left: 819.44px;
+  width: 1106.64px;
+  height: 1306.21px;
+  z-index: 0;
+  overflow: hidden;
+
+  /* Layout Grid per posizionare i due frame interni */
+  display: grid;
+  grid-template-columns: 537.32px auto;
+  gap: 32px;
+  grid-template-rows: auto;
+  padding: 0;
+  justify-content: start;
+  align-content: start;
+  align-items: start;
+
+  @media (max-width: 770px) {
+    display: hidden;
+  }
+}
+
+/* Stile per la singola immagine dei rettangoli impilati (sostituisce Frame 2608798) */
+.homepage-stacked-rectangles {
+  /* Posizionamento nella griglia */
+  grid-column: 1;
+  grid-row: 1;
+  /* La sua posizione verticale (top: 55px nel Figma per il frame) sarà gestita con margin-top */
+  margin-top: 55px;
+
+  /* Dimensioni: dovrebbe mantenere le dimensioni del frame originale per consistenza */
+  width: 537.32px;
+  height: 318.26px;
+  /* Aggiungi border-radius e box-shadow se l'immagine esportata non li include */
+  border-radius: 15px; /* Border radius dal Figma */
+  box-shadow: 45px 35px 40px 0px rgba(17, 34, 17, 0.1); /* Box shadow dal Figma */
+  object-fit: cover; /* Assicurati che l'immagine copra l'area mantenendo le proporzioni */
+}
+
+.homepage-frame-2608799 {
+  /* Questo frame è nella seconda colonna della griglia */
+  grid-column: 2;
+  grid-row: 1;
+  /* La sua posizione verticale (top: 0px) è allineata al top della riga della griglia */
+  margin-top: 0; /* Assicurati che non ci sia margin-top non voluto */
+
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.homepage-frame-2608799 img {
+  /* Queste immagini sono gestite dal flexbox del frame parent */
+  position: static; /* Assicurati che non siano absolute */
+  width: 537.32px; /* Dimensioni dal Figma */
+  height: 302.55px; /* Dimensioni dal Figma */
+  border-radius: 15px;
+  box-shadow: 45px 35px 40px 0px rgba(17, 34, 17, 0.1);
+  object-fit: cover;
+}
+
+/* Assicurati che il contenitore principale nasconda l'overflow */
+.homepage-root {
+  overflow: hidden; /* Questo dovrebbe tagliare la parte del right-images container che esce a destra */
+}

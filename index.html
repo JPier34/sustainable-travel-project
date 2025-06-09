@@ -1,13 +1,271 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="it">
   <head>
+    <!-- Meta Tags Base -->
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Title e Description -->
+    <title>
+      Orizon - Turismo Sostenibile & Viaggi Responsabili | Blockchain Travel
+    </title>
+    <meta
+      name="description"
+      content="Scopri viaggi sostenibili con Orizon. Turismo responsabile che supporta comunità locali, protegge l'ambiente e crea un futuro migliore. Prenota la tua avventura eco-friendly oggi."
+    />
+    <meta
+      name="keywords"
+      content="turismo sostenibile, viaggi responsabili, eco-turismo, blockchain travel, comunità locali, compensazione CO2, viaggi etici, sostenibilità ambientale"
+    />
+    <meta name="author" content="J.Pier - Orizon Team" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://orizon.travel/" />
+    <meta
+      property="og:title"
+      content="Orizon - Il Futuro del Turismo Sostenibile"
+    />
+    <meta
+      property="og:description"
+      content="Viaggia responsabilmente con Orizon. Scopri destinazioni autentiche, supporta comunità locali e contribuisci alla sostenibilità ambientale attraverso la tecnologia blockchain."
+    />
+    <meta property="og:image" content="https://orizon.travel/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Orizon - Piattaforma di turismo sostenibile con destinazioni paradisiache"
+    />
+    <meta property="og:site_name" content="Orizon Travel" />
+    <meta property="og:locale" content="it_IT" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://orizon.travel/" />
+    <meta
+      name="twitter:title"
+      content="Orizon - Turismo Sostenibile del Futuro"
+    />
+    <meta
+      name="twitter:description"
+      content="Viaggia responsabilmente. Scopri come ogni viaggio può fare la differenza per l'ambiente e le comunità locali."
+    />
+    <meta
+      name="twitter:image"
+      content="https://orizon.travel/twitter-image.jpg"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="Orizon sustainable travel platform"
+    />
+    <meta name="twitter:creator" content="@OrizonTravel" />
+    <meta name="twitter:site" content="@OrizonTravel" />
+
+    <!-- LinkedIn -->
+    <meta
+      property="og:image"
+      content="https://orizon.travel/linkedin-image.jpg"
+    />
+    <meta name="linkedin:owner" content="Orizon Travel" />
+
+    <!-- WhatsApp -->
+    <meta property="og:image:type" content="image/jpeg" />
+
+    <!-- Favicon e Icons -->
+    <link rel="icon" type="image/svg+xml" href="./src/assets/logo-og.svg" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./src/assets/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./src/assets/favicon-16x16.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./src/assets/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="./manifest.json" />
+    <meta name="theme-color" content="#10B981" />
+    <meta name="msapplication-TileColor" content="#10B981" />
+    <meta name="msapplication-config" content="./browserconfig.xml" />
+
+    <!-- Preconnect per Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+
+    <!-- DNS Prefetch per risorse esterne -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com" />
+
+    <!-- Structured Data - JSON-LD -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Orizon Travel",
+        "alternateName": "Orizon",
+        "url": "https://orizon.travel",
+        "logo": "https://orizon.travel/src/assets/logo-og.svg",
+        "description": "Piattaforma di turismo sostenibile che utilizza la tecnologia blockchain per supportare comunità locali e proteggere l'ambiente",
+        "founder": {
+          "@type": "Person",
+          "name": "J.Pier"
+        },
+        "foundingDate": "2024",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "email": "info@orizon.travel"
+        },
+        "sameAs": [
+          "https://twitter.com/OrizonTravel",
+          "https://instagram.com/orizontravel",
+          "https://linkedin.com/company/orizon-travel"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Sustainable Travel Packages",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "TouristTrip",
+                "name": "Eco-friendly Travel Experiences"
+              }
+            }
+          ]
+        }
+      }
+    </script>
+
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://orizon.travel"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Destinazioni",
+            "item": "https://orizon.travel/destinazioni"
+          }
+        ]
+      }
+    </script>
+
+    <!-- Security Headers -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:;"
+    />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta
+      http-equiv="Referrer-Policy"
+      content="strict-origin-when-cross-origin"
+    />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://orizon.travel/" />
+
+    <!-- Alternative Languages -->
+    <link rel="alternate" hreflang="it" href="https://orizon.travel/" />
+    <link rel="alternate" hreflang="en" href="https://orizon.travel/en/" />
+    <link rel="alternate" hreflang="es" href="https://orizon.travel/es/" />
+    <link rel="alternate" hreflang="x-default" href="https://orizon.travel/" />
+
+    <!-- Prefetch critical resources -->
+    <link rel="prefetch" href="./src/assets/hero-bg.jpg" />
+    <link
+      rel="preload"
+      as="font"
+      href="./src/assets/fonts/primary-font.woff2"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <!-- Google Analytics (sostituisci con il tuo ID) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "GA_MEASUREMENT_ID");
+    </script>
+
+    <!-- Schema per Web3/Blockchain -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Orizon Travel Platform",
+        "applicationCategory": "Travel & Tourism",
+        "operatingSystem": "Web Browser",
+        "description": "Blockchain-powered sustainable travel platform",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "ETH"
+        },
+        "featureList": [
+          "Sustainable travel booking",
+          "Blockchain transparency",
+          "Community impact tracking",
+          "Carbon offset calculation"
+        ]
+      }
+    </script>
   </head>
   <body>
+    <!-- Skip to main content for accessibility -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-green-500 text-white px-4 py-2 rounded"
+    >
+      Salta al contenuto principale
+    </a>
+
     <div id="root"></div>
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/sw.js")
+            .then((registration) => {
+              console.log("SW registered: ", registration);
+            })
+            .catch((registrationError) => {
+              console.log("SW registration failed: ", registrationError);
+            });
+        });
+      }
+    </script>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

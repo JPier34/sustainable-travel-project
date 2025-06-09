@@ -1,22 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import type { Product } from "./products";
-import { PRODUCTS } from "./products";
-import ProductCard from "./ProductCard";
-import SuccessModal from "./SuccessModal";
+import { products } from "./products";
+
 import {
   useAccount,
   useBalance,
   useDisconnect,
   useSendTransaction,
 } from "wagmi";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { ethers, formatEther } from "ethers";
-import "./App.css";
 
-console.log(
-  "VITE_TRAVEL_AGENT_ADDRESS:",
-  import.meta.env.VITE_TRAVEL_AGENT_ADDRESS
-);
+import { ethers } from "ethers";
+import { ArrowRight } from "lucide-react";
+
+import StickyHeader from "./StickyHeader";
+import HomePage from "./HomePage";
+import ProductCard from "./ProductCard";
+import Footer from "./Footer";
+import SuccessModal from "./SuccessModal";
+
+import "./App.css";
+import ErrorModal from "./ErrorModal";
+import SustainabilityPillars from "./SustainabilityPillars";
 
 // L'indirizzo wallet di Gianni (testnet Sepolia)
 const TRAVEL_AGENT_ADDRESS = import.meta.env
@@ -30,10 +35,10 @@ if (!TRAVEL_AGENT_ADDRESS || !ethers.isAddress(TRAVEL_AGENT_ADDRESS)) {
 const App: React.FC = () => {
   // 1. Stato account
   const { address, isConnected } = useAccount();
-  const { disconnect } = useDisconnect();
+  useDisconnect();
 
   // 2. Stato balance (in ETH)
-  const { data: balanceData } = useBalance({
+  useBalance({
     address: address, // l’indirizzo dell’utente connesso
     chainId: 11155111, // Sepolia chain ID
   });
@@ -44,20 +49,35 @@ const App: React.FC = () => {
   // 4. Stato locale per mostrare alert / messaggi
   const [txHash, setTxHash] = useState<string | null>(null);
   const [isBuying, setIsBuying] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (isConnected && address) {
+      setErrorMessage("");
+    }
+  }, [isConnected, address]);
+
+  useEffect(() => {
+    if (txHash) {
+      const timer = setTimeout(() => setTxHash(null), 10000);
+      return () => clearTimeout(timer);
+    }
+  }, [txHash]);
 
   // Funzione per “buy” un prodotto
   const handleBuy = async (product: Product) => {
-    setErrorMessage("");
+    setErrorMessage(null);
     if (!isConnected || !address) {
       setErrorMessage("Devi connettere il wallet per procedere.");
       return;
     }
 
-    setIsBuying(true);
     try {
+      setIsBuying(true);
       // 1. calcola value in wei
-      const amountWei = ethers.parseEther(product.priceInETH.toString());
+      const amountWei = ethers.parseEther(
+        product.price.toString().replace(" ETH", "")
+      );
 
       // 2. invia transazione
       const tx = await sendTransactionAsync({
@@ -67,9 +87,10 @@ const App: React.FC = () => {
 
       // 3. salva l'hash della transazione
       setTxHash(tx);
-    } catch (err: any) {
+    } catch (error) {
+      const err = error as Error;
       console.error(err);
-      setErrorMessage(err?.message || "Transazione fallita");
+      setErrorMessage("Transazione fallita");
     } finally {
       setIsBuying(false);
     }
@@ -82,35 +103,19 @@ const App: React.FC = () => {
   const [boughtProduct, setBoughtProduct] = useState<Product | null>(null);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center py-8 px-4">
-      <h1 className="text-4xl font-bold text-green-700 mb-8">
-        GreenChain Travel Marketplace
-      </h1>
+    <>
+      <StickyHeader isConnected={isConnected} setIsConnected={() => {}} />
 
-      {/* Barra di connessione / logout */}
-      <div className="w-full max-w-md flex flex-col items-center mb-8 space-y-4">
-        <ConnectButton /> {/* RainbowKit ConnectButton */}
-        {isConnected && (
-          <button
-            onClick={() => disconnect()}
-            className="mt-2 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-          >
-            Logout
-          </button>
-        )}
-        {isConnected && balanceData && (
-          <p className="text-gray-700">
-            <span className="font-semibold">Il tuo saldo:</span>{" "}
-            {parseFloat(formatEther(balanceData.value)).toFixed(4)}{" "}
-            {balanceData.symbol}
-          </p>
-        )}
-      </div>
+      {/* HomePage contiene il layout e lo sfondo */}
+      <HomePage />
 
       {/* Messaggi di errore o hash tx */}
       {errorMessage && (
         <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md max-w-md w-full">
-          {errorMessage}
+          <ErrorModal
+            message={errorMessage}
+            onClose={() => setErrorMessage(null)}
+          />
         </div>
       )}
       {txHash && (
@@ -126,10 +131,17 @@ const App: React.FC = () => {
           </a>
         </div>
       )}
+      <SustainabilityPillars />
 
-      {/* Gallery dei prodotti */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl">
-        {PRODUCTS.map((product) => (
+      {/* Contenuto principale dell'app */}
+      <div className="min-h-screen bg-gray-50 items-center py-14 px-4">
+        {/* Titolo della pagina */}
+        <h1 className="text-7xl font-bold text-green-700 mt-8 mb-28 text-left homepage-title">
+          Le nostre offerte
+        </h1>
+
+        {/* Lista dei prodotti */}
+        {products.map((product) => (
           <ProductCard
             key={product.id}
             product={product}
@@ -137,6 +149,14 @@ const App: React.FC = () => {
             onBuy={handleBuy}
           />
         ))}
+
+        {/* Pulsante per vedere tutte le destinazioni */}
+        <div className="text-center mt-16">
+          <button className="font-['Inter'] px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl shadow-lg shadow-emerald-500/25 hover:shadow-xl hover:shadow-emerald-500/30 transition-all duration-300 flex items-center mx-auto">
+            Vedi Tutte le Destinazioni
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </button>
+        </div>
       </div>
 
       {/* Modal di successo */}
@@ -151,13 +171,8 @@ const App: React.FC = () => {
           }}
         />
       )}
-
-      {/* Footer */}
-      <footer className="mt-12 text-gray-500 text-sm">
-        &copy; {new Date().getFullYear()} GreenTravel. Tutti i diritti
-        riservati.
-      </footer>
-    </div>
+      <Footer />
+    </>
   );
 };
 
