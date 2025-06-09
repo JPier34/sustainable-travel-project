@@ -17,7 +17,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const [hoveredCard, setHoveredCard] = useState<null | string>(null);
 
   return (
-    <div className="grid gap-8 mb-8 p-4 rounded-2xl bg-gradient-to-b from-white to-zinc-200">
+    <div className="font-['Inter'] grid gap-8 mb-8 p-4 rounded-2xl bg-gradient-to-b from-white to-zinc-200">
       <div className="group relative min-w-max w-full max-w-2xl mx-auto rounded-2xl shadow-lg shadow-emerald-100 hover:shadow-xl hover:shadow-emerald-300/40 transition-all duration-500 overflow-hidden">
         {/* Badge */}
         <div className="absolute top-4 left-4 z-10">

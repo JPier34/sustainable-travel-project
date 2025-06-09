@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Globe, Wallet } from "lucide-react";
+import { Wallet } from "lucide-react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export interface StickyHeaderProps {
@@ -37,20 +37,12 @@ const StickyHeader: React.FC<StickyHeaderProps> = () => {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center">
-                <Globe className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h1 className="text-lg font-bold text-gray-900">ORIZON</h1>
-                <p className="text-xs text-emerald-600 font-medium">
-                  Sustainable Travel
-                </p>
-              </div>
+            <div>
+              <p className="text-2xl homepage-title">Orizon.</p>
             </div>
 
             {/* Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="font-['Inter'] hidden md:flex items-center space-x-8">
               <a
                 href="#destinations"
                 className="text-gray-700 hover:text-emerald-600 font-medium transition-colors"
@@ -107,7 +99,7 @@ const StickyHeader: React.FC<StickyHeaderProps> = () => {
                           className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-lg transition-colors duration-200 flex items-center space-x-2"
                         >
                           <Wallet className="w-4 h-4" />
-                          <span>Connect</span>
+                          <span className="font-['Inter']">Connect</span>
                         </button>
                       ) : (
                         <button

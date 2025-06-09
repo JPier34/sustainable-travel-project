@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./HomePage.css";
 import logo from "./assets/logo.jpeg";
 import rectangle47 from "./assets/rectangle47.svg";
@@ -10,6 +10,58 @@ import rectangle51 from "./assets/rectangle51.svg";
 import rectangle49 from "./assets/rectangle49.svg";
 
 const HomePage: React.FC = () => {
+  const [displayedText, setDisplayedText] = useState("");
+  const fullText = "Orizon. Il Tuo Viaggio.";
+
+  useEffect(() => {
+    setDisplayedText("");
+
+    const startDelay = setTimeout(() => {
+      typeText(0); // Passa l'indice come parametro
+    }, 500);
+
+    return () => clearTimeout(startDelay);
+  }, []);
+
+  const typeText = (index: number) => {
+    if (index < fullText.length) {
+      setDisplayedText(fullText.substring(0, index + 1));
+
+      // Ritardo variabile per effetto più naturale
+      const delay =
+        fullText[index] === "." ? 300 : fullText[index] === " " ? 50 : 80;
+
+      setTimeout(() => typeText(index + 1), delay); // Passa il prossimo indice
+    }
+    // Quando finisce, non fa nient'altro - testo pulito senza cursore
+  };
+
+  // Dividi il testo per gestire lo styling separatamente
+  const getStyledText = () => {
+    const text = displayedText;
+
+    // Trova la posizione di "Orizon." e "Il Tuo Viaggio."
+    if (text.includes("Il")) {
+      const parts = text.split("Il ");
+      const firstPart = parts[0]; // "Orizon. "
+      const secondPart = parts[1] ? "Il " + parts[1] : ""; // "Il Tuo Viaggio."
+
+      return (
+        <>
+          <h1 className="homepage-title">{firstPart}</h1>
+          {secondPart && (
+            <h2 className="homepage-subtitle">
+              Il <em>{secondPart.replace("Il ", "").replace("Tuo", "tuo")}</em>
+            </h2>
+          )}
+        </>
+      );
+    } else {
+      // Ancora nella prima parte
+      return <h1 className="homepage-title">{text}</h1>;
+    }
+  };
+
   return (
     <div className="homepage-root">
       {/* Gradiente di sfondo */}
@@ -18,14 +70,9 @@ const HomePage: React.FC = () => {
       {/* Contenuto principale a sinistra */}
       <div className="homepage-content">
         <div className="homepage-logo-circle">
-          <img src={logo} alt="Golobe Logo" className="homepage-logo" />
+          <img src={logo} alt="Orizon Logo" className="homepage-logo" />
         </div>
-        <div className="homepage-title-section">
-          <h1 className="homepage-title">Orizon.</h1>
-          <h2 className="homepage-subtitle">
-            Il <em>tuo</em> viaggio.
-          </h2>
-        </div>
+        <div className="homepage-title-section">{getStyledText()}</div>
         <div className="homepage-stats">
           <div className="homepage-stat">
             <span className="homepage-stat-number"></span>

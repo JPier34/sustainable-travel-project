@@ -37,7 +37,7 @@ export const products: Product[] = [
     description:
       "7 notti in lodge eco-friendly, tour dei vulcani e cascate con guida naturalistica certificata.",
     image:
-      "https://ipfs.io/ipfs/bafybeidaanmx4xspqdwo66j4uv5hltbl4cfdft7534lwl5fjldej7m7cz4",
+      "https://ipfs.io/ipfs/bafybeidjswcmob2kgwrknwgaze5mpczamientodpmgsdruuotcg2rnvavi",
     price: "0.0015 ETH",
     originalPrice: "0.002 ETH",
     dates: "01.09-07.09",

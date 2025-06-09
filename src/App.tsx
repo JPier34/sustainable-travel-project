@@ -21,6 +21,7 @@ import SuccessModal from "./SuccessModal";
 
 import "./App.css";
 import ErrorModal from "./ErrorModal";
+import SustainabilityPillars from "./SustainabilityPillars";
 
 // L'indirizzo wallet di Gianni (testnet Sepolia)
 const TRAVEL_AGENT_ADDRESS = import.meta.env
@@ -130,6 +131,7 @@ const App: React.FC = () => {
           </a>
         </div>
       )}
+      <SustainabilityPillars />
 
       {/* Contenuto principale dell'app */}
       <div className="min-h-screen bg-gray-50 items-center py-14 px-4">
@@ -150,7 +152,7 @@ const App: React.FC = () => {
 
         {/* Pulsante per vedere tutte le destinazioni */}
         <div className="text-center mt-16">
-          <button className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl shadow-lg shadow-emerald-500/25 hover:shadow-xl hover:shadow-emerald-500/30 transition-all duration-300 flex items-center mx-auto">
+          <button className="font-['Inter'] px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl shadow-lg shadow-emerald-500/25 hover:shadow-xl hover:shadow-emerald-500/30 transition-all duration-300 flex items-center mx-auto">
             Vedi Tutte le Destinazioni
             <ArrowRight className="w-5 h-5 ml-2" />
           </button>
