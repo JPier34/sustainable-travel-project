@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://orizon.travel/sitemap.xml
+
+# Disallow admin areas if any
+Disallow: /admin/
+Disallow: /api/private/
+
+# Allow important paths
+Allow: /destinazioni/
+Allow: /mission/
+Allow: /impatto/
+Allow: /community/

@@ -17,7 +17,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const [hoveredCard, setHoveredCard] = useState<null | string>(null);
 
   return (
-    <div className="font-['Inter'] grid gap-8 mb-8 p-4 rounded-2xl bg-gradient-to-b from-white to-zinc-200">
+    <div className="font-['Inter'] grid gap-8 mb-8 rounded-2xl bg-gradient-to-b from-white to-zinc-200">
       <div className="group relative min-w-max w-full max-w-2xl mx-auto rounded-2xl shadow-lg shadow-emerald-100 hover:shadow-xl hover:shadow-emerald-300/40 transition-all duration-500 overflow-hidden">
         {/* Badge */}
         <div className="absolute top-4 left-4 z-10">
@@ -51,7 +51,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className="p-6">
         {/* Title & Rating */}
         <div className="flex items-start justify-between mb-3">
-          <h3 className="text-xl font-bold text-gray-900 group-hover:text-emerald-600 transition-colorsshadow-gray-200/50 hover:shadow-2xl hover:shadow-emerald-500/10">
+          <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 group-hover:text-emerald-600 transition-colorsshadow-gray-200/50 hover:shadow-2xl hover:shadow-emerald-500/10">
             {product.title}
           </h3>
           <div className="flex items-center text-sm text-gray-600">
@@ -62,7 +62,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         {/* Description */}
-        <p className="text-gray-600 text-sm leading-relaxed mb-4">
+        <p className="text-gray-600 text-lg md:text-xl lg:text-2xl leading-relaxed mb-4">
           {product.description}
         </p>
 
@@ -81,7 +81,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         {/* Dates */}
         <div className="flex items-center text-sm text-gray-500 mb-4">
           <Calendar className="w-4 h-4 mr-2" />
-          <span>Disponibile in data {product.dates}</span>
+          <span>Disponibile in date {product.dates}</span>
         </div>
 
         {/* Price & CTA */}

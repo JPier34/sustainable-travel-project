@@ -17,7 +17,7 @@ export type Product<T = object> = {
 export const products: Product[] = [
   {
     id: 1,
-    title: "Aloha, Hawaii",
+    title: "Aloha, Hawaii!",
     description:
       "Due settimane nel paradiso hawaiano con un pacchetto che include voli, soggiorno in hotel e tour sostenibili.",
     image:
@@ -33,7 +33,7 @@ export const products: Product[] = [
   },
   {
     id: 2,
-    title: "Islanda Verde",
+    title: "Islanda Eco-Adventure",
     description:
       "7 notti in lodge eco-friendly, tour dei vulcani e cascate con guida naturalistica certificata.",
     image:

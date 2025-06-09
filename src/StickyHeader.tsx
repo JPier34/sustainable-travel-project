@@ -99,7 +99,7 @@ const StickyHeader: React.FC<StickyHeaderProps> = () => {
                           className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-lg transition-colors duration-200 flex items-center space-x-2"
                         >
                           <Wallet className="w-4 h-4" />
-                          <span className="font-['Inter']">Connect</span>
+                          <span className="font-['Inter']">Connettiti</span>
                         </button>
                       ) : (
                         <button
