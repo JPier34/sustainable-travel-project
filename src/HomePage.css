@@ -78,6 +78,13 @@
   box-shadow: 0 8px 50px 0 rgba(17, 34, 17, 0.01);
   padding: 64px 90px;
   margin-left: 90px;
+
+  @media (max-width: 770px) {
+    margin: auto;
+    justify-content: center;
+    margin-top: 6.5rem;
+    padding: 32px;
+  }
 }
 
 .homepage-logo-circle {
@@ -157,9 +164,9 @@
 
 /* Stile per il testo della firma (J.Pier) con font Zeyada */
 .homepage-signature-text {
-  font-family: "Zeyada", cursive; /* Usa Zeyada per la firma */
-  font-size: 36px; /* Potrebbe necessitare aggiustamenti */
-  font-weight: 400; /* Zeyada ha solo un peso */
+  font-family: "Zeyada", cursive;
+  font-size: 36px;
+  font-weight: 400;
   color: #13992a;
   opacity: 1;
   margin-left: 8px;
@@ -170,7 +177,6 @@
   position: absolute;
   top: 0px;
   left: 819.44px;
-
   width: 1106.64px;
   height: 1306.21px;
   z-index: 0;
@@ -178,16 +184,17 @@
 
   /* Layout Grid per posizionare i due frame interni */
   display: grid;
-  /* Definisci due colonne con larghezze fisse basate sui frame e un gap tra loro */
-  grid-template-columns: 537.32px auto; /* Prima colonna fissa, seconda automatica per riempire lo spazio disponibile nel right-images container */
-  gap: 32px; /* Gap basato sulla differenza di posizionamento */
-  grid-template-rows: auto; /* Una singola riga */
-  padding: 0; /* Rimuovi padding se presente */
-  /* Allinea gli elementi all'interno della griglia */
-  justify-content: start; /* Allinea le colonne all'inizio */
-  align-content: start; /* Allinea le righe all'inizio */
-  /* Imposta l'allineamento degli item all'interno delle celle della griglia */
-  align-items: start; /* Allinea i contenuti delle celle della griglia all'inizio verticalmente */
+  grid-template-columns: 537.32px auto;
+  gap: 32px;
+  grid-template-rows: auto;
+  padding: 0;
+  justify-content: start;
+  align-content: start;
+  align-items: start;
+
+  @media (max-width: 770px) {
+    display: hidden;
+  }
 }
 
 /* Stile per la singola immagine dei rettangoli impilati (sostituisce Frame 2608798) */

@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
           © 2025 GreenTravel. Tutti i diritti riservati.
         </p>
         <p className="text-gray-500 text-sm mt-2">
-          Created by JPier - Sustainable Travel Platform
+          Created by J.Pier - Sustainable Travel Platform
         </p>
       </div>
     </footer>

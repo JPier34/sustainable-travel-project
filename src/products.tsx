@@ -21,7 +21,7 @@ export const products: Product[] = [
     description:
       "Due settimane nel paradiso hawaiano con un pacchetto che include voli, soggiorno in hotel e tour sostenibili.",
     image:
-      "https://ipfs.io/ipfs/bafkreihgazicw64iafj2g7t6d2c32ktmuuqiujcuw47lbzg3d5evdj26ra",
+      "https://ipfs.io/ipfs/bafybeibjlqvzkk4dhqoyidvtnesn4l45vbphj55cpydhanfeawiiuzhgiu",
     price: "0.001 ETH",
     originalPrice: "0.0015 ETH",
     dates: "01.10-14.10",
@@ -37,7 +37,7 @@ export const products: Product[] = [
     description:
       "7 notti in lodge eco-friendly, tour dei vulcani e cascate con guida naturalistica certificata.",
     image:
-      "https://ipfs.io/ipfs/bafkreicjswsgf5krsmicq7wiqhfj6jxwmouk5xnfqiapqqoewcu6hgbxue",
+      "https://ipfs.io/ipfs/bafybeidaanmx4xspqdwo66j4uv5hltbl4cfdft7534lwl5fjldej7m7cz4",
     price: "0.0015 ETH",
     originalPrice: "0.002 ETH",
     dates: "01.09-07.09",
@@ -53,7 +53,7 @@ export const products: Product[] = [
     description:
       "Un'avventura ad impatto 0 di 10 giorni tra natura selvaggia, fauna unica e cultura aborigena.",
     image:
-      "https://ipfs.io/ipfs/bafkreieewflmjgu7t6fkptcvyu57ahedsxsvf74shsmqmckd7crhrcgufa",
+      "https://ipfs.io/ipfs/bafkreiaqbcwox6pffaoxv6znj6f4ighirxszxbrews5yaxj6nobokmzova",
     price: "0.002 ETH",
     originalPrice: "0.0025 ETH",
     dates: "01.11-10.11",
