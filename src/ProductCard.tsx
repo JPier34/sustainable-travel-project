@@ -29,7 +29,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
   product,
   onBuy,
 }) => {
-  const [hoveredCard, setHoveredCard] = useState<null | string>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState<
@@ -365,19 +364,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 {product.originalPrice}
               </span>
             </div>
-
-            <button
-              className="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-lg transition-all duration-200 flex items-center shadow-lg hover:shadow-xl"
-              onClick={() => onBuy(product)}
-              disabled={isBuying}
-              onMouseEnter={() => setHoveredCard(String(product.id))}
-              onMouseLeave={() => setHoveredCard(null)}
-            >
-              Acquista
-              {hoveredCard === String(product.id) && (
-                <ChevronRight className="w-4 h-4 ml-1 transition-transform duration-200" />
-              )}
-            </button>
           </div>
 
           {/* Expand Toggle */}

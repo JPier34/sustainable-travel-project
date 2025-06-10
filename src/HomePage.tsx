@@ -110,7 +110,7 @@ const HomePage: React.FC = () => {
           />
         </div>
 
-        {/* Frame 2608799 (immagini a colonna) - Questo rimane */}
+        {/* Frame 2608799 (immagini a colonna) */}
         <div className="homepage-frame-2608799">
           <img
             src={rectangle53}
