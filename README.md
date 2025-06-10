@@ -1,6 +1,6 @@
 # Sustainable Travel Project - Orizon 🌍✈️
 
-Welcome to the **Sustainable Travel Project - Orizon**! This application offers a unique way to book travel experiences with a strong focus on sustainability, all powered by cryptocurrency. We aim to merge eco-conscious travel with the innovation of decentralized finance.
+Welcome to the **Sustainable Travel Project - Orizon**! This application offers a unique way to book travel experiences with a strong focus on sustainability, all powered by cryptocurrency. We aim to merge eco-conscious travel with the innovation of decentralized finance. Check it out on: https://sustainable-travel-project.vercel.app/
 
 ## Features ✨
 
@@ -93,6 +93,7 @@ The configuration ensures a high standard of code quality out of the box, helpin
 ## Deployment 🌐
 
 The Sustainable Travel Project - Orizon is deployed using **Vercel**, providing continuous deployment and easy scaling. 🚀
+Here is the website: https://sustainable-travel-project.vercel.app/
 
 ---
 
