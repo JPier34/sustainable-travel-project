@@ -230,7 +230,7 @@
   /* Queste immagini sono gestite dal flexbox del frame parent */
   position: static; /* Assicurati che non siano absolute */
   width: 537.32px; /* Dimensioni dal Figma */
-  height: 302.55px; /* Dimensioni dal Figma */
+  height: auto; /* Dimensioni dal Figma */
   border-radius: 15px;
   box-shadow: 45px 35px 40px 0px rgba(17, 34, 17, 0.1);
   object-fit: cover;

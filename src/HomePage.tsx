@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./HomePage.css";
 import logo from "./assets/logo.jpeg";
-import rectangle47 from "./assets/rectangle47.svg";
-import rectangle45 from "./assets/rectangle45.svg";
-import rectangle48 from "./assets/rectangle48.svg";
-import rectangle53 from "./assets/rectangle53.svg";
-import rectangle52 from "./assets/rectangle52.svg";
-import rectangle51 from "./assets/rectangle51.svg";
-import rectangle49 from "./assets/rectangle49.svg";
+import rectangle47 from "./assets/rectangle47.png";
+import rectangle45 from "./assets/rectangle45.png";
+import rectangle48 from "./assets/rectangle48.png";
+import frameRight from "./assets/frame-right.svg";
 
 const HomePage: React.FC = () => {
   const [displayedText, setDisplayedText] = useState("");
@@ -91,7 +88,7 @@ const HomePage: React.FC = () => {
 
       {/* Contenitore per le immagini di sfondo a destra */}
       <div className="homepage-right-images">
-        {/* Reintrodurre il Frame 2608798 con le immagini singole dei rettangoli */}
+        {/* Immagine di sfondo a destra */}
         <div className="homepage-frame-2608798">
           <img
             src={rectangle47}
@@ -113,24 +110,9 @@ const HomePage: React.FC = () => {
         {/* Frame 2608799 (immagini a colonna) */}
         <div className="homepage-frame-2608799">
           <img
-            src={rectangle53}
+            src={frameRight}
             alt="Background image 4"
             className="homepage-rectangle-53"
-          />
-          <img
-            src={rectangle52}
-            alt="Background image 5"
-            className="homepage-rectangle-52"
-          />
-          <img
-            src={rectangle51}
-            alt="Background image 6"
-            className="homepage-rectangle-51"
-          />
-          <img
-            src={rectangle49}
-            alt="Background image 7"
-            className="homepage-rectangle-49"
           />
         </div>
       </div>
