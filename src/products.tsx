@@ -53,8 +53,8 @@ export const products: Product[] = [
     image:
       "https://ipfs.io/ipfs/bafybeibjlqvzkk4dhqoyidvtnesn4l45vbphj55cpydhanfeawiiuzhgiu",
     additionalImages: [
-      "https://ipfs.io/ipfs/bafybeibjlqvzkk4dhqoyidvtnesn4l45vbphj55cpydhanfeawiiuzhgiu",
-      "https://ipfs.io/ipfs/bafybeidjswcmob2kgwrknwgaze5mpczamientodpmgsdruuotcg2rnvavi",
+      "https://ipfs.io/ipfs/bafkreiaqjhhz2pln4m67g4qf7xzmt44bqvvrpl2ixbq6t3g73n6kjnbhoq",
+      "https://ipfs.io/ipfs/bafybeie6rcaarvavw7tbbq3nn6xs3e3ywley6odyjrp5s22p7nylv75j7m",
     ],
     price: "0.001 ETH",
     originalPrice: "0.0015 ETH",
@@ -268,8 +268,8 @@ export const products: Product[] = [
     image:
       "https://ipfs.io/ipfs/bafybeidjswcmob2kgwrknwgaze5mpczamientodpmgsdruuotcg2rnvavi",
     additionalImages: [
-      "https://ipfs.io/ipfs/bafybeidjswcmob2kgwrknwgaze5mpczamientodpmgsdruuotcg2rnvavi",
-      "https://ipfs.io/ipfs/bafkreiaqbcwox6pffaoxv6znj6f4ighirxszxbrews5yaxj6nobokmzova",
+      "https://ipfs.io/ipfs/bafkreif2oj2tw2ynaqrp6cnqragogh2kimnrlhp2imkgu7fkyems2ccn2u",
+      "https://ipfs.io/ipfs/bafkreicgp47hfkzeweo53jv2aqdvqrofac7aqnnn57bl7j4223rez3kgnm",
     ],
     price: "0.0015 ETH",
     originalPrice: "0.002 ETH",
@@ -395,8 +395,8 @@ export const products: Product[] = [
     image:
       "https://ipfs.io/ipfs/bafkreiaqbcwox6pffaoxv6znj6f4ighirxszxbrews5yaxj6nobokmzova",
     additionalImages: [
-      "https://ipfs.io/ipfs/bafkreiaqbcwox6pffaoxv6znj6f4ighirxszxbrews5yaxj6nobokmzova",
-      "https://ipfs.io/ipfs/bafybeibjlqvzkk4dhqoyidvtnesn4l45vbphj55cpydhanfeawiiuzhgiu",
+      "https://ipfs.io/ipfs/bafkreiheii3fvgtz535zawfbxrllsxtwxqkzwwkvzdj24ke7s4vkozl36u",
+      "https://ipfs.io/ipfs/bafybeihqn3t5rouemluhezh5ous62jfv4djxev7442lwaaa7d36q5267ai",
     ],
     price: "0.002 ETH",
     originalPrice: "0.0025 ETH",

@@ -35,27 +35,21 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const [activeTab, setActiveTab] = useState<
     "itinerary" | "sustainability" | "accommodation" | "included"
   >("itinerary");
+  const [showFullItinerary, setShowFullItinerary] = useState(false);
 
-  const allImages = [product.image, ...(product.additionalImages || [])];
+  const renderItinerary = () => {
+    const visibleItinerary = showFullItinerary
+      ? product.itinerary
+      : product.itinerary?.slice(0, 3);
 
-  const handleImageNavigation = (direction: "prev" | "next") => {
-    if (direction === "next") {
-      setActiveImageIndex((prev) => (prev + 1) % allImages.length);
-    } else {
-      setActiveImageIndex(
-        (prev) => (prev - 1 + allImages.length) % allImages.length
-      );
-    }
-  };
-
-  const tabContent = {
-    itinerary: (
+    return (
       <div className="space-y-4">
         <h4 className="font-semibold text-lg text-gray-800 flex items-center">
           <Clock className="w-5 h-5 mr-2 text-emerald-600" />
           Itinerario Dettagliato
         </h4>
-        {product.itinerary?.slice(0, 3).map((day, index) => (
+
+        {visibleItinerary?.map((day, index) => (
           <div key={index} className="border-l-2 border-emerald-200 pl-4 pb-4">
             <div className="flex items-start space-x-3">
               <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center text-sm font-semibold text-emerald-700">
@@ -79,12 +73,33 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         ))}
         {product.itinerary && product.itinerary.length > 3 && (
-          <p className="text-sm text-gray-500 italic">
-            + altri {product.itinerary.length - 3} giorni...
-          </p>
+          <button
+            onClick={() => setShowFullItinerary((prev) => !prev)}
+            className="text-sm bg-emerald-600 hover:bg-emerald-700 text-white italic hover:underline"
+          >
+            {showFullItinerary
+              ? "Mostra meno"
+              : `+ altri ${product.itinerary.length - 3} giorni...`}
+          </button>
         )}
       </div>
-    ),
+    );
+  };
+
+  const allImages = [product.image, ...(product.additionalImages || [])];
+
+  const handleImageNavigation = (direction: "prev" | "next") => {
+    if (direction === "next") {
+      setActiveImageIndex((prev) => (prev + 1) % allImages.length);
+    } else {
+      setActiveImageIndex(
+        (prev) => (prev - 1 + allImages.length) % allImages.length
+      );
+    }
+  };
+
+  const tabContent = {
+    itinerary: renderItinerary(),
     sustainability: (
       <div className="space-y-4">
         <h4 className="font-semibold text-lg text-gray-800 flex items-center">
