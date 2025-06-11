@@ -61,7 +61,7 @@ const SustainabilityPillars = () => {
     <div className="w-auto px-4 py-20 bg-gradient-to-br from-slate-50 to-white">
       {/* Header */}
       <div className="text-center mb-16">
-        <h2 className="font-bold text-6xl text-green-700 mt-8 mb-20 text-left homepage-title">
+        <h2 className="font-bold text-5xl text-green-700 mt-8 mb-20 text-left homepage-title">
           I Nostri Pilastri della Sostenibilità
         </h2>
         <p className="font-['Inter'] text-xl text-gray-600 max-w-3xl mx-auto">

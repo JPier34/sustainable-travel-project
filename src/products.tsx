@@ -13,6 +13,7 @@ export type Product<T = object> = {
   description: string;
   additionalImages?: string[];
   detailedDescription?: string;
+  emoji?: string;
   itinerary?: {
     day: number;
     title: string;
@@ -32,8 +33,11 @@ export type Product<T = object> = {
   included?: string[];
   excluded?: string[];
   difficulty?: "Facile" | "Medio" | "Difficile";
+  color?: string;
   season?: string;
   groupSize?: string;
+  travelers?: number;
+  story?: string;
   localInsights?: {
     guides: string[];
     culturalTips: string[];
@@ -65,8 +69,12 @@ export const products: Product[] = [
     ecoFeatures: ["Hotel Eco-Certified", "Trasporti Verdi", "Tour Locali"],
     badge: "Più Popolare",
     difficulty: "Facile",
+    color: "#FF5733",
     season: "Tutto l'anno",
     groupSize: "Max 12 persone",
+    travelers: 12,
+    story: "Marco ha salvato 2.3 ton di CO2",
+    emoji: "🌴",
     itinerary: [
       {
         day: 1,
@@ -280,8 +288,12 @@ export const products: Product[] = [
     ecoFeatures: ["Energia Geotermica", "Lodge Sostenibile", "Zero Plastica"],
     badge: "Carbon Negative",
     difficulty: "Medio",
+    color: "#00ADEF",
     season: "Settembre - Ottobre",
     groupSize: "Max 8 persone",
+    travelers: 18,
+    story: "Elena ha piantato 15 alberi",
+    emoji: "🏔️",
     itinerary: [
       {
         day: 1,
@@ -407,8 +419,12 @@ export const products: Product[] = [
     ecoFeatures: ["Comunità Locali", "Wildlife Protection", "Camping Eco"],
     badge: "Avventura",
     difficulty: "Difficile",
+    color: "#FF8C00",
     season: "November - March",
     groupSize: "Max 6 persone",
+    travelers: 10,
+    story: "Luca ha ridotto 5km di costa",
+    emoji: "🌏",
     itinerary: [
       {
         day: 1,
