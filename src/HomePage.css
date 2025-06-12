@@ -29,7 +29,7 @@
   overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   background: linear-gradient(
     120deg,
     #8dd3bb 0%,
@@ -325,6 +325,7 @@
     gap: 0px;
     margin-top: 6.5rem;
     margin-left: 0;
+    padding: 1.5rem;
     align-items: center;
     height: auto; /* Permette al contenuto di determinare l'altezza */
     max-height: none; /* Rimuove l'altezza massima per evitare overflow */
@@ -333,7 +334,7 @@
 
   @media (max-width: 770px) {
     margin-top: 3.5rem;
-    padding: 3rem;
+    padding: 4.5rem;
   }
 }
 
@@ -356,6 +357,9 @@
 
 .homepage-title-section {
   margin-bottom: 24px;
+  @media (max-width: 1025px) {
+    text-align: center; /* Centra il testo su schermi piccoli */
+  }
 }
 
 .homepage-title,
@@ -373,7 +377,7 @@
   @media (max-width: 770px) {
     justify-content: center;
     margin-top: 0.5rem;
-    font-size: 25px;
+    font-size: 30px;
   }
 }
 
@@ -395,8 +399,8 @@
   color: #000;
   opacity: 0.6;
 
-  @media (max-width: 770px) {
-    font-size: 20px; /* Riduci la dimensione del font su schermi piccoli */
+  @media (max-width: 1024px) {
+    font-size: 15px; /* Riduci la dimensione del font su schermi piccoli */
   }
 }
 
@@ -409,7 +413,7 @@
   opacity: 1;
   margin-left: 8px;
 
-  @media (max-width: 770px) {
+  @media (max-width: 1024px) {
     font-size: 24px; /* Riduci la dimensione del font su schermi piccoli */
   }
 }
@@ -420,7 +424,7 @@
   right: 0;
   max-width: 700px;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1024px), (max-height: 767px) {
     display: none; /* Nascondi il contenuto laterale su schermi piccoli */
   }
 }
