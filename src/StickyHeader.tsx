@@ -8,7 +8,7 @@ export interface StickyHeaderProps {
 }
 
 const StickyHeader: React.FC<StickyHeaderProps> = () => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {

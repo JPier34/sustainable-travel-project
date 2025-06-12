@@ -423,7 +423,7 @@ export const products: Product[] = [
     season: "November - March",
     groupSize: "Max 6 persone",
     travelers: 10,
-    story: "Luca ha ridotto 5km di costa",
+    story: "Luca ha ripulito 5km di costa",
     emoji: "🌏",
     itinerary: [
       {

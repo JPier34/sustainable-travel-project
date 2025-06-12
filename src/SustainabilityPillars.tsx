@@ -58,18 +58,21 @@ const SustainabilityPillars = () => {
   };
 
   return (
-    <div className="w-auto px-4 py-20 bg-gradient-to-br from-slate-50 to-white">
+    <div className="grid grid-rows-2 w-auto px-4 py-20 bg-gradient-to-br from-slate-50 to-white">
       {/* Header */}
-      <div className="text-center mb-16">
-        <h2 className="font-bold text-5xl text-green-700 mt-8 mb-20 text-left homepage-title">
+      <div className="justify-left sm:mt-0 sm:h-8 sm:mb-8">
+        <h2 className="homepage-title font-bold text-5xl sm:text-5xl text-green-700 mt-0 sm:mt-8 leading-[1.5]">
           I Nostri Pilastri della Sostenibilità
         </h2>
-        <p className="font-['Inter'] text-xl text-gray-600 max-w-3xl mx-auto">
+      </div>
+
+      <div className="justify-left m-auto mb-10 sm:mb-20">
+        <p className="font-['Inter'] text-left text-lg sm:text-2xl text-gray-600 max-w-3xl mx-auto">
           La Orizon ha più di 20 anni di esperienza nel turismo, e fonda la sua
           mission sull'idea che il turismo possa essere un motore di sviluppo
-          sostenibile. I nostri progetti sono costruiti su tre pilastri
-          fondamentali: <strong>Ambiente, Comunità ed Economia.</strong> Scopri
-          come lavoriamo per creare un futuro migliore per tutti.
+          sostenibile. Per questo offriamo delle esperienze uniche, in grado di
+          abbinare al viaggio il sostegno ad{" "}
+          <strong>Ambiente, Comunità ed Economia.</strong>
         </p>
       </div>
 

@@ -7,7 +7,7 @@ import { Heart, Users, Leaf, Camera, Compass } from "lucide-react";
 const HomePage: React.FC = () => {
   const [displayedText, setDisplayedText] = useState("");
   // Inserisci i \n dove vuoi andare a capo
-  const fullText = "Paga crypto.\nViaggia.\nSalva il mondo.";
+  const fullText = "Paga in crypto.\nViaggia.\nSalva il mondo.";
 
   useEffect(() => {
     setDisplayedText("");
@@ -51,7 +51,7 @@ const HomePage: React.FC = () => {
   const travelStories = [
     {
       user: "Sofia",
-      action: "ha prenotato Bali",
+      action: "ha prenotato Australia",
       time: "2 min fa",
       avatar: "👩🏻",
     },
@@ -63,7 +63,7 @@ const HomePage: React.FC = () => {
     },
     {
       user: "Elena",
-      action: "ha salvato Patagonia",
+      action: "ha messo Hawaii nel carrello",
       time: "8 min fa",
       avatar: "👩🏼",
     },
@@ -84,6 +84,13 @@ const HomePage: React.FC = () => {
     <div className="homepage-root">
       {/* Gradiente di sfondo */}
       <div className="homepage-bg-gradient"></div>
+
+      {/* Particles Layer */}
+      <div className="homepage-particles">
+        {[...Array(15)].map((_, i) => (
+          <div key={i} className="particle"></div>
+        ))}
+      </div>
 
       {/* Contenuto principale a sinistra */}
       <div className="homepage-content">
@@ -184,10 +191,7 @@ const HomePage: React.FC = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex space-x-3">
-                <button className="flex-1 bg-white text-gray-900 py-3 rounded-xl font-bold hover:bg-gray-100 transition-all">
-                  Prenota Ora
-                </button>
+              <div className="flex justify-around items-center">
                 <button className="p-3 bg-white/20 rounded-xl hover:bg-white/30 transition-all">
                   <Camera className="w-5 h-5 text-white" />
                 </button>
