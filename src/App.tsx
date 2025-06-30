@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
 import type { Product } from "./products";
 import { products } from "./products";
 
@@ -11,42 +11,40 @@ import {
 } from "wagmi";
 
 import { ethers } from "ethers";
-import { ArrowRight } from "lucide-react";
 
 import StickyHeader from "./StickyHeader";
-import HomePage from "./HomePage";
 import ProductCard from "./ProductCard";
 import Footer from "./Footer";
-import SuccessModal from "./SuccessModal";
 
 import "./App.css";
 import ErrorModal from "./ErrorModal";
 import SustainabilityPillars from "./SustainabilityPillars";
 
-// L'indirizzo wallet di Gianni (testnet Sepolia)
+// Orizon main address  (testnet Sepolia)
 const TRAVEL_AGENT_ADDRESS = import.meta.env
   .VITE_TRAVEL_AGENT_ADDRESS as `0x${string}`;
 if (!TRAVEL_AGENT_ADDRESS || !ethers.isAddress(TRAVEL_AGENT_ADDRESS)) {
   throw new Error("Indirizzo del destinatario non valido o mancante.");
 }
 
-// Indirizzo (test) di Gianni (su Sepolia)
+// Orizon address (test) (on Sepolia)
 
 const App: React.FC = () => {
-  // 1. Stato account
+  const navigate = useNavigate();
+
   const { address, isConnected } = useAccount();
   useDisconnect();
 
-  // 2. Stato balance (in ETH)
+  // Balance (in ETH)
   useBalance({
-    address: address, // l’indirizzo dell’utente connesso
+    address: address, // user address
     chainId: 11155111, // Sepolia chain ID
   });
 
-  // 3. useSendTransaction per inviare ETH
+  // useSendTransaction used for sending ETH
   const { sendTransactionAsync } = useSendTransaction();
 
-  // 4. Stato locale per mostrare alert / messaggi
+  // alert / messagges
   const [txHash, setTxHash] = useState<string | null>(null);
   const [isBuying, setIsBuying] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -64,29 +62,34 @@ const App: React.FC = () => {
     }
   }, [txHash]);
 
-  // Funzione per “buy” un prodotto
+  // “buy” function
   const handleBuy = async (product: Product) => {
     setErrorMessage(null);
     if (!isConnected || !address) {
       setErrorMessage("Devi connettere il wallet per procedere.");
       return;
     }
-
     try {
       setIsBuying(true);
-      // 1. calcola value in wei
+      // 1. calculate value in wei
       const amountWei = ethers.parseEther(
         product.price.toString().replace(" ETH", "")
       );
 
-      // 2. invia transazione
+      // 2. send transaction
       const tx = await sendTransactionAsync({
         to: TRAVEL_AGENT_ADDRESS,
         value: amountWei,
       });
 
-      // 3. salva l'hash della transazione
+      // 3. save tx hash
       setTxHash(tx);
+      navigate("/app/success", {
+        state: {
+          txHash: tx,
+          boughtProduct: product,
+        },
+      });
     } catch (error) {
       const err = error as Error;
       console.error(err);
@@ -94,22 +97,13 @@ const App: React.FC = () => {
     } finally {
       setIsBuying(false);
     }
-    setBoughtProduct(product);
-    setShowSuccessModal(true);
   };
-
-  // Modal per successful purchase
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [boughtProduct, setBoughtProduct] = useState<Product | null>(null);
 
   return (
     <>
       <StickyHeader isConnected={isConnected} setIsConnected={() => {}} />
 
-      {/* HomePage contiene il layout e lo sfondo */}
-      <HomePage />
-
-      {/* Messaggi di errore o hash tx */}
+      {/* Error message or hash tx */}
       {errorMessage && (
         <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md max-w-md w-full">
           <ErrorModal
@@ -133,14 +127,14 @@ const App: React.FC = () => {
       )}
       <SustainabilityPillars />
 
-      {/* Contenuto principale dell'app */}
+      {/* App main content */}
       <div className="min-h-screen bg-gray-50 items-center py-14 px-4">
-        {/* Titolo della pagina */}
+        {/* Page title */}
         <h1 className="text-7xl font-bold text-green-700 mt-8 mb-28 text-left homepage-title">
           Le nostre offerte
         </h1>
 
-        {/* Lista dei prodotti */}
+        {/* Product list */}
         {products.map((product) => (
           <ProductCard
             key={product.id}
@@ -150,27 +144,16 @@ const App: React.FC = () => {
           />
         ))}
 
-        {/* Pulsante per vedere tutte le destinazioni */}
+        {/* 'All destinations' button */}
+        {/* EVENTUAL NEXT DEVELOPINGS
         <div className="text-center mt-16">
           <button className="font-['Inter'] px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl shadow-lg shadow-emerald-500/25 hover:shadow-xl hover:shadow-emerald-500/30 transition-all duration-300 flex items-center mx-auto">
             Vedi Tutte le Destinazioni
             <ArrowRight className="w-5 h-5 ml-2" />
           </button>
         </div>
+        */}
       </div>
-
-      {/* Modal di successo */}
-      {showSuccessModal && boughtProduct && txHash && (
-        <SuccessModal
-          product={boughtProduct}
-          txHash={txHash}
-          onClose={() => {
-            setShowSuccessModal(false);
-            setBoughtProduct(null);
-            setTxHash(null);
-          }}
-        />
-      )}
       <Footer />
     </>
   );

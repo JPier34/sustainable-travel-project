@@ -11,6 +11,7 @@
     "tailwind:init": "node ./node_modules/tailwindcss/lib/cli.js init -p"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@rainbow-me/rainbowkit": "^2.2.5",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "ethers": "^6.14.3",
@@ -18,6 +19,7 @@
     "lucide-react": "^0.513.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.3",
     "svgo": "^3.3.2",
     "viem": "^2.30.5",
     "wagmi": "^2.15.4"

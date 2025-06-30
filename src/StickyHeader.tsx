@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Wallet } from "lucide-react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAccount } from "wagmi";
 
 export interface StickyHeaderProps {
   isConnected: boolean;
@@ -10,6 +12,9 @@ export interface StickyHeaderProps {
 const StickyHeader: React.FC<StickyHeaderProps> = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const { isConnected } = useAccount();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const controlHeader = () => {
@@ -27,6 +32,19 @@ const StickyHeader: React.FC<StickyHeaderProps> = () => {
     return () => window.removeEventListener("scroll", controlHeader);
   }, [lastScrollY]);
 
+  const handleSmoothScroll = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const headerHeight = 80; // Altezza dell'header
+      const elementPosition = element.offsetTop - headerHeight;
+
+      window.scrollTo({
+        top: elementPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <header
       className={`fixed top-0 w-full z-50 transition-transform duration-300 ${
@@ -42,31 +60,23 @@ const StickyHeader: React.FC<StickyHeaderProps> = () => {
             </div>
 
             {/* Navigation */}
-            <nav className="font-['Inter'] hidden md:flex items-center space-x-8">
-              <a
-                href="#destinations"
-                className="text-gray-700 hover:text-emerald-600 font-medium transition-colors"
-              >
-                Destinazioni
-              </a>
-              <a
-                href="#mission"
-                className="text-gray-700 hover:text-emerald-600 font-medium transition-colors"
-              >
-                Mission
-              </a>
-              <a
-                href="#impact"
-                className="text-gray-700 hover:text-emerald-600 font-medium transition-colors"
-              >
-                Impatto
-              </a>
-              <a
-                href="#community"
-                className="text-gray-700 hover:text-emerald-600 font-medium transition-colors"
-              >
-                Community
-              </a>
+            <nav className="sticky top-0 z-50">
+              <ul>
+                <li>
+                  <a onClick={() => handleNavClick("destinations")}>
+                    Destinazioni
+                  </a>
+                </li>
+                <li>
+                  <a onClick={() => handleNavClick("mission")}>Mission</a>
+                </li>
+                <li>
+                  <a href="/app/trips">I Miei Viaggi</a>
+                </li>
+                <li>
+                  <a href="/app">Esplora App</a>
+                </li>
+              </ul>
             </nav>
 
             {/* Wallet Connection */}

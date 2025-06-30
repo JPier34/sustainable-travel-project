@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./HomePage.css";
 import logo from "./assets/logo.jpeg";
 import { products } from "./products";
-import { Heart, Users, Leaf, Camera, Compass } from "lucide-react";
+import { Users, Leaf } from "lucide-react";
 
 const HomePage: React.FC = () => {
   const [displayedText, setDisplayedText] = useState("");
-  // Inserisci i \n dove vuoi andare a capo
+  //  \n to go to the next line
   const fullText = "Paga in crypto.\nViaggia.\nSalva il mondo.";
 
   useEffect(() => {
@@ -30,11 +30,11 @@ const HomePage: React.FC = () => {
     }
   };
 
-  // Gestione degli a capo con \n
+  // New line handles with \n
   const getStyledText = () => {
     const text = displayedText.trim();
 
-    // Dividi il testo sulle nuove righe
+    // Divide text on new lines
     const lines = text.split("\n");
 
     return (
@@ -47,7 +47,7 @@ const HomePage: React.FC = () => {
     );
   };
 
-  // Dati FITTIZI per le destinazioni e le storie di viaggio
+  // Default data for destinations and travel stories
   const travelStories = [
     {
       user: "Sofia",
@@ -82,7 +82,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="homepage-root">
-      {/* Gradiente di sfondo */}
+      {/* BG gradient */}
       <div className="homepage-bg-gradient"></div>
 
       {/* Particles Layer */}
@@ -92,7 +92,7 @@ const HomePage: React.FC = () => {
         ))}
       </div>
 
-      {/* Contenuto principale a sinistra */}
+      {/* Left principal content */}
       <div className="homepage-content">
         <div className="homepage-logo-circle">
           <img src={logo} alt="Orizon Logo" className="homepage-logo" />
@@ -104,7 +104,7 @@ const HomePage: React.FC = () => {
           <span className="homepage-signature-text ">J.Pier</span>
         </div>
       </div>
-      {/* Contenuto a destra */}
+      {/* Right content */}
       <div className="flex-1 p-8 space-y-6 side-content">
         {/* Live Activity Feed */}
         <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20">
@@ -145,9 +145,11 @@ const HomePage: React.FC = () => {
               </div>
 
               {/* Floating Heart */}
-              <button className="p-2 bg-white/20 rounded-full hover:bg-white/30 transition-all">
-                <Heart className="w-5 h-5 text-white" />
-              </button>
+              {/* 
+<button className="p-2 bg-white/20 rounded-full hover:bg-white/30 transition-all">
+  <Heart className="w-5 h-5 text-white" />
+</button>
+*/}
 
               {/* Live Travelers Count */}
               <div className="flex items-center space-x-1 bg-white/20 px-3 py-1 rounded-full">
@@ -191,6 +193,8 @@ const HomePage: React.FC = () => {
               </div>
 
               {/* Action Buttons */}
+              {/* Useful for future developings
+
               <div className="flex justify-around items-center">
                 <button className="p-3 bg-white/20 rounded-xl hover:bg-white/30 transition-all">
                   <Camera className="w-5 h-5 text-white" />
@@ -199,6 +203,7 @@ const HomePage: React.FC = () => {
                   <Compass className="w-5 h-5 text-white" />
                 </button>
               </div>
+              */}
             </div>
           </div>
 

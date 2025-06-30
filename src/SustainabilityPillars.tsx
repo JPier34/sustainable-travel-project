@@ -125,6 +125,7 @@ const SustainabilityPillars = () => {
       </div>
 
       {/* Bottom CTA */}
+      {/*
       <div className="text-center">
         <p className="font-['Inter'] text-gray-600 mb-6">
           Vuoi saperne di più sui nostri progetti di sostenibilità?
@@ -133,6 +134,7 @@ const SustainabilityPillars = () => {
           Scopri di Più
         </button>
       </div>
+      */}
     </div>
   );
 };

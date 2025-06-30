@@ -73,7 +73,7 @@ export const products: Product[] = [
     season: "Tutto l'anno",
     groupSize: "Max 12 persone",
     travelers: 12,
-    story: "Marco ha salvato 2.3 ton di CO2",
+    story: "Marco ha risparmiato 2.3 ton di CO2",
     emoji: "🌴",
     itinerary: [
       {
