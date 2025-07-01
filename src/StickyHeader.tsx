@@ -35,7 +35,7 @@ const StickyHeader: React.FC<StickyHeaderProps> = () => {
   const handleSmoothScroll = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      const headerHeight = 80; // Altezza dell'header
+      const headerHeight = 90; // Altezza dell'header
       const elementPosition = element.offsetTop - headerHeight;
 
       window.scrollTo({

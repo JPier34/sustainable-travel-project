@@ -3,11 +3,23 @@ import "./HomePage.css";
 import logo from "./assets/logo.jpeg";
 import { products } from "./products";
 import { Users, Leaf } from "lucide-react";
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
 
 const HomePage: React.FC = () => {
+  const navigate = useNavigate();
+  const [isNavigating, setIsNavigating] = useState(false);
   const [displayedText, setDisplayedText] = useState("");
   //  \n to go to the next line
   const fullText = "Paga in crypto.\nViaggia.\nSalva il mondo.";
+
+  const handleHeroClick = async () => {
+    setIsNavigating(true);
+
+    setTimeout(() => {
+      navigate("/app");
+    }, 500);
+  };
 
   useEffect(() => {
     setDisplayedText("");
@@ -84,7 +96,6 @@ const HomePage: React.FC = () => {
     <div className="homepage-root">
       {/* BG gradient */}
       <div className="homepage-bg-gradient"></div>
-
       {/* Particles Layer */}
       <div className="homepage-particles">
         {[...Array(15)].map((_, i) => (
@@ -93,11 +104,31 @@ const HomePage: React.FC = () => {
       </div>
 
       {/* Left principal content */}
-      <div className="homepage-content">
+      <div
+        className={`homepage-content clickable-hero ${
+          isNavigating ? "loading" : ""
+        }`}
+        onClick={handleHeroClick}
+        role="button"
+        tabIndex={0}
+        aria-label="Inizia il tuo viaggio sostenibile"
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handleHeroClick();
+          }
+        }}
+      >
         <div className="homepage-logo-circle">
           <img src={logo} alt="Orizon Logo" className="homepage-logo" />
+          <div className="logo-hover-overlay">
+            <ArrowRightIcon className="arrow-icon" />
+            <span className="hover-text">Entra nell'App</span>
+          </div>
         </div>
-        <div className="homepage-title-section">{getStyledText()}</div>
+        <div className="homepage-title-section homepage-slogan">
+          {getStyledText()}
+        </div>
 
         <div className="homepage-createdby">
           <span className="homepage-createdby-text">Created by</span>
@@ -144,8 +175,8 @@ const HomePage: React.FC = () => {
                 {products[currentDestination]?.emoji}
               </div>
 
-              {/* Floating Heart */}
-              {/* 
+              {/* Floating Heart (for future use)
+     
 <button className="p-2 bg-white/20 rounded-full hover:bg-white/30 transition-all">
   <Heart className="w-5 h-5 text-white" />
 </button>
@@ -193,17 +224,15 @@ const HomePage: React.FC = () => {
               </div>
 
               {/* Action Buttons */}
-              {/* Useful for future developings
 
               <div className="flex justify-around items-center">
-                <button className="p-3 bg-white/20 rounded-xl hover:bg-white/30 transition-all">
-                  <Camera className="w-5 h-5 text-white" />
-                </button>
-                <button className="p-3 bg-white/20 rounded-xl hover:bg-white/30 transition-all">
-                  <Compass className="w-5 h-5 text-white" />
+                <button
+                  className="p-3 bg-sky-200 rounded-xl hover:bg-sky-300 transition-all"
+                  onClick={() => navigate("/product")}
+                >
+                  <span className="text-sky-900">Scopri di più!</span>
                 </button>
               </div>
-              */}
             </div>
           </div>
 

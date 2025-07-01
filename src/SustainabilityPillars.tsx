@@ -84,7 +84,7 @@ const SustainabilityPillars = () => {
           return (
             <div
               key={index}
-              className={`group relative ${colorClass.bg} ${colorClass.border} border-2 rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:scale-105 cursor-pointer`}
+              className={`group relative ${colorClass.bg} ${colorClass.border} border-2 rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:scale-105`}
             >
               {/* Accent line */}
               <div
@@ -118,14 +118,13 @@ const SustainabilityPillars = () => {
               </p>
 
               {/* Hover effect overlay */}
-              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-300"></div>
+              <div className="pointer-events-none absolute inset-0 bg-white opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-300"></div>
             </div>
           );
         })}
       </div>
 
-      {/* Bottom CTA */}
-      {/*
+      {/* Bottom CTA (for future use)
       <div className="text-center">
         <p className="font-['Inter'] text-gray-600 mb-6">
           Vuoi saperne di più sui nostri progetti di sostenibilità?

@@ -40,7 +40,7 @@ ReactDOM.createRoot(rootElement).render(
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/app" element={<App />} />
+              <Route path="/app/:slug?" element={<App />} />
               <Route path="/app/trips" element={<Trips />} />
               <Route path="/app/success" element={<SuccessPage />} />
             </Routes>

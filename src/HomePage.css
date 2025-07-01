@@ -1,11 +1,11 @@
-/* Importazione dei font */
-/* Montserrat da Google Fonts */
+/* Font import */
+/* Montserrat from Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap");
 
-/* Permanent Marker da Google Fonts (alternativa) */
+/* Permanent Marker from Google Fonts (alternative) */
 @import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
 
-/* Zeyada (per la firma) */
+/* Zeyada (sign font) */
 @import url("https://fonts.googleapis.com/css2?family=Zeyada&display=swap");
 
 :root {
@@ -36,20 +36,20 @@
     rgba(141, 211, 187, 0.14) 68%,
     rgba(141, 211, 187, 0) 100%
   );
-  min-height: 100dvh; /* Imposta l'altezza massima per evitare overflow */
-  height: auto; /* Permette al contenuto di determinare l'altezza */
+  min-height: 100dvh;
+  height: auto;
 
   @media (max-width: 1024px) {
-    padding: 0 20px; /* Aggiungi un padding per evitare che il contenuto tocchi i bordi */
+    padding: 0 20px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 65dvh; /* Imposta l'altezza minima per evitare overflow */
+    min-height: 65dvh;
   }
 
   @media (max-width: 770px) {
-    padding: 0 10px; /* Aggiungi un padding per evitare che il contenuto tocchi i bordi */
-    min-height: 100dvh; /* Imposta l'altezza minima per evitare overflow */
+    padding: 0 10px;
+    min-height: 100dvh;
   }
 }
 
@@ -321,20 +321,209 @@
     padding: 32px 48px;
     margin-left: 48px;
     height: 80%;
-    box-shadow: none; /* Rimuovi l'ombra su schermi piccoli */
+    box-shadow: none;
     gap: 0px;
     margin-top: 6.5rem;
     margin-left: 0;
     padding: 1.5rem;
     align-items: center;
-    height: auto; /* Permette al contenuto di determinare l'altezza */
-    max-height: none; /* Rimuove l'altezza massima per evitare overflow */
-    top: 0; /* Rimuove il margine superiore per evitare overflow */
+    height: auto;
+    max-height: none;
+    top: 0;
   }
 
   @media (max-width: 770px) {
     margin-top: 3.5rem;
     padding: 4.5rem;
+  }
+}
+
+/* Hero Section (clickable) */
+.clickable-hero {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 20px;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+.clickable-hero:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  filter: brightness(1.1);
+}
+
+.clickable-hero {
+  border: 2px solid transparent;
+}
+
+.clickable-hero:focus {
+  outline: 3px solid #10b981;
+  outline-offset: 2px;
+}
+
+.clickable-hero:active {
+  transform: translateY(-2px) scale(1.005);
+  transition-duration: 0.1s;
+}
+
+/* Logo Hover Effect */
+.homepage-logo-circle {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.clickable-hero:hover .homepage-logo-circle {
+  transform: scale(1.05);
+}
+
+.logo-hover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(16, 185, 129, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+}
+
+.clickable-hero:hover .logo-hover-overlay {
+  opacity: 1;
+}
+
+.arrow-icon {
+  width: 2rem;
+  height: 2rem;
+  color: white;
+  margin-bottom: 0.5rem;
+  animation: bounce 2s infinite;
+}
+
+.hover-text {
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Animated slogan */
+.homepage-slogan {
+  margin-top: 1rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease 0.1s;
+}
+
+.clickable-hero:hover .homepage-slogan {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Click Indicator */
+.click-indicator {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.clickable-hero:hover .click-indicator {
+  opacity: 1;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.click-text {
+  font-size: 0.8rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Animazioni */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .clickable-hero {
+    padding: 1.5rem;
+  }
+
+  .click-indicator {
+    bottom: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .slogan-text {
+    font-size: 0.9rem;
+  }
+}
+
+/* Loading states/Transition */
+.clickable-hero.loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.clickable-hero.loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2rem;
+  height: 2rem;
+  margin: -1rem 0 0 -1rem;
+  border: 3px solid #10b981;
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 
@@ -358,12 +547,12 @@
 .homepage-title-section {
   margin-bottom: 24px;
   @media (max-width: 1025px) {
-    text-align: center; /* Centra il testo su schermi piccoli */
+    text-align: center;
   }
 }
 
 .homepage-title,
-.homepage-subtitle {
+.homepage-slogan {
   font-family: "Permanent Marker", cursive;
   font-size: 70px;
   font-weight: 400;
@@ -381,7 +570,7 @@
   }
 }
 
-.homepage-subtitle {
+.homepage-slogan {
   opacity: 0.8;
 }
 
@@ -400,11 +589,11 @@
   opacity: 0.6;
 
   @media (max-width: 1024px) {
-    font-size: 15px; /* Riduci la dimensione del font su schermi piccoli */
+    font-size: 15px;
   }
 }
 
-/* Stile per il testo della firma (J.Pier) con font Zeyada */
+/* Sign font (J.Pier) Zeyada */
 .homepage-signature-text {
   font-family: "Zeyada", cursive;
   font-size: 36px;
@@ -414,7 +603,7 @@
   margin-left: 8px;
 
   @media (max-width: 1024px) {
-    font-size: 24px; /* Riduci la dimensione del font su schermi piccoli */
+    font-size: 24px;
   }
 }
 
@@ -425,6 +614,6 @@
   max-width: 700px;
 
   @media (max-width: 1024px), (max-height: 767px) {
-    display: none; /* Nascondi il contenuto laterale su schermi piccoli */
+    display: none;
   }
 }

@@ -4,6 +4,7 @@ export type Product<T = object> = {
   image: string;
   price: string;
   originalPrice: string;
+  slug?: string;
   dates: string; // "01.10-14.10", "01.09-07.09", etc.
   rating: number; // 4.5, 4.8, etc.
   reviews: number; // 127, 89, etc.
