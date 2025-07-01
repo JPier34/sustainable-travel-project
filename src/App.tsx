@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import type { Product } from "./products";
 import { products } from "./products";
 
@@ -15,7 +15,6 @@ import { ethers } from "ethers";
 import StickyHeader from "./StickyHeader";
 import ProductCard from "./ProductCard";
 import Footer from "./Footer";
-
 import "./App.css";
 import ErrorModal from "./ErrorModal";
 import SustainabilityPillars from "./SustainabilityPillars";
@@ -29,8 +28,43 @@ if (!TRAVEL_AGENT_ADDRESS || !ethers.isAddress(TRAVEL_AGENT_ADDRESS)) {
 
 // Orizon address (test) (on Sepolia)
 
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const App: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { slug } = useParams();
+  const [loadingSteps, setLoadingSteps] = useState({
+    pillars: false,
+    products: false,
+    footer: false,
+  });
+
+  useEffect(() => {
+    const loadSequence = async () => {
+      //  Pillars
+      await delay(300);
+      setLoadingSteps((prev) => ({ ...prev, pillars: true }));
+
+      // Products
+      await delay(500);
+      setLoadingSteps((prev) => ({ ...prev, products: true }));
+
+      // Footer
+      await delay(300);
+      setLoadingSteps((prev) => ({ ...prev, footer: true }));
+    };
+
+    loadSequence();
+  }, []);
+
+  // Highlighted product when clicked upon
+  const [highlightedProductId, setHighlightedProductId] = useState<
+    number | null
+  >(null);
+  const highlightedProductRef = useRef<HTMLDivElement>(null);
+
+  const filteredProducts = products;
 
   const { address, isConnected } = useAccount();
   useDisconnect();
@@ -62,6 +96,61 @@ const App: React.FC = () => {
     }
   }, [txHash]);
 
+  useEffect(() => {
+    const state = location.state as {
+      highlightProductId?: number;
+      scrollToProduct?: boolean;
+    };
+
+    if (state?.highlightProductId) {
+      setHighlightedProductId(state.highlightProductId);
+
+      if (state.scrollToProduct) {
+        const scrollTimer = setTimeout(() => {
+          const highlightedElement = document.querySelector(
+            ".highlighted-product-container"
+          );
+          if (highlightedElement) {
+            highlightedElement.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          } else {
+            // Fallback
+            highlightedProductRef.current?.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          }
+        }, 1000);
+
+        return () => clearTimeout(scrollTimer);
+      }
+
+      const highlightTimer = setTimeout(() => {
+        setHighlightedProductId(null);
+      }, 5000);
+
+      return () => clearTimeout(highlightTimer);
+    }
+  }, [location.state]);
+
+  useEffect(() => {
+    if (slug) {
+      const productWithSlug = products.find((p) => p.slug === slug);
+      if (productWithSlug) {
+        setHighlightedProductId(productWithSlug.id);
+
+        setTimeout(() => {
+          highlightedProductRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }, 300);
+      }
+    }
+  }, [slug]);
+
   // “buy” function
   const handleBuy = async (product: Product) => {
     setErrorMessage(null);
@@ -71,18 +160,18 @@ const App: React.FC = () => {
     }
     try {
       setIsBuying(true);
-      // 1. calculate value in wei
+      // Calculate value in wei
       const amountWei = ethers.parseEther(
         product.price.toString().replace(" ETH", "")
       );
 
-      // 2. send transaction
+      // Send transaction
       const tx = await sendTransactionAsync({
         to: TRAVEL_AGENT_ADDRESS,
         value: amountWei,
       });
 
-      // 3. save tx hash
+      // Save tx hash
       setTxHash(tx);
       navigate("/app/success", {
         state: {
@@ -101,7 +190,7 @@ const App: React.FC = () => {
 
   return (
     <>
-      <StickyHeader isConnected={isConnected} setIsConnected={() => {}} />
+      <StickyHeader />
 
       {/* Error message or hash tx */}
       {errorMessage && (
@@ -125,24 +214,81 @@ const App: React.FC = () => {
           </a>
         </div>
       )}
-      <SustainabilityPillars />
+
+      {loadingSteps.pillars && (
+        <div className="fade-in">
+          <SustainabilityPillars />
+        </div>
+      )}
 
       {/* App main content */}
       <div className="min-h-screen bg-gray-50 items-center py-14 px-4">
         {/* Page title */}
-        <h1 className="text-7xl font-bold text-green-700 mt-8 mb-28 text-left homepage-title">
-          Le nostre offerte
-        </h1>
+        {loadingSteps.products ? (
+          <h1 className="text-7xl font-bold text-green-700 mt-8 mb-28 text-left homepage-title fade-in">
+            Le nostre offerte
+          </h1>
+        ) : (
+          // Title skeleton
+          <div className="animate-pulse mt-8 mb-28">
+            <div className="h-20 bg-gray-300 rounded w-1/2"></div>
+          </div>
+        )}
 
         {/* Product list */}
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            isBuying={isBuying}
-            onBuy={handleBuy}
-          />
-        ))}
+        {loadingSteps.products || highlightedProductId ? (
+          <div className="products-container">
+            {filteredProducts.map((product, index) => (
+              <div
+                key={product.id}
+                ref={
+                  product.id === highlightedProductId
+                    ? highlightedProductRef
+                    : null
+                }
+                className={`
+          ${
+            product.id === highlightedProductId
+              ? "highlighted-product-container"
+              : "staggered-item"
+          }
+        `}
+                style={{
+                  animationDelay:
+                    product.id === highlightedProductId
+                      ? "0ms"
+                      : `${index * 200}ms`,
+                }}
+              >
+                <ProductCard
+                  product={product}
+                  isBuying={isBuying}
+                  onBuy={handleBuy}
+                  isHighlighted={product.id === highlightedProductId}
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          // Skeleton product cards
+          <div className="space-y-8">
+            {Array(3)
+              .fill(0)
+              .map((_, i) => (
+                <div
+                  key={i}
+                  className="bg-white rounded-lg p-6 animate-pulse max-w-4xl mx-auto"
+                >
+                  <div className="h-48 bg-gray-300 rounded mb-4"></div>
+                  <div className="space-y-3">
+                    <div className="h-6 bg-gray-300 rounded w-3/4"></div>
+                    <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+                    <div className="h-4 bg-gray-300 rounded w-2/3"></div>
+                  </div>
+                </div>
+              ))}
+          </div>
+        )}
 
         {/* 'All destinations' button */}
         {/* EVENTUAL NEXT DEVELOPINGS
@@ -154,7 +300,11 @@ const App: React.FC = () => {
         </div>
         */}
       </div>
-      <Footer />
+      {loadingSteps.footer && (
+        <div className="fade-in-delayed">
+          <Footer />
+        </div>
+      )}
     </>
   );
 };

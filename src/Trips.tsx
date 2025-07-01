@@ -18,7 +18,7 @@ interface Trip {
   participants: number;
   price: string;
   duration: string;
-  status: "upcoming" | "completed" | "cancelled";
+  status: "imminente" | "completato" | "cancellato";
   transactionHash: string;
   bookingDate: string;
   image: string;
@@ -26,9 +26,9 @@ interface Trip {
 
 enum TripFilter {
   ALL = "all",
-  UPCOMING = "upcoming",
-  COMPLETED = "completed",
-  CANCELLED = "cancelled",
+  imminente = "imminente",
+  completato = "completato",
+  cancellato = "cancellato",
 }
 
 const Trips: React.FC = () => {
@@ -49,7 +49,7 @@ const Trips: React.FC = () => {
       participants: 2,
       price: "0.5",
       duration: "7 giorni",
-      status: "upcoming",
+      status: "imminente",
       transactionHash: "0x1234567890abcdef1234567890abcdef12345678",
       bookingDate: "2025-06-20",
       image: "https://via.placeholder.com/300x200",
@@ -61,7 +61,7 @@ const Trips: React.FC = () => {
       participants: 1,
       price: "0.8",
       duration: "10 giorni",
-      status: "completed",
+      status: "completato",
       transactionHash: "0xabcdef1234567890abcdef1234567890abcdef12",
       bookingDate: "2025-01-15",
       image: "https://via.placeholder.com/300x200",
@@ -101,9 +101,9 @@ const Trips: React.FC = () => {
 
   const getStatusBadge = (status: Trip["status"]) => {
     const statusConfig = {
-      upcoming: { color: "bg-blue-100 text-blue-800", text: "Prossimo" },
-      completed: { color: "bg-green-100 text-green-800", text: "Completato" },
-      cancelled: { color: "bg-red-100 text-red-800", text: "Cancellato" },
+      imminente: { color: "bg-blue-100 text-blue-800", text: "Prossimo" },
+      completato: { color: "bg-green-100 text-green-800", text: "Completato" },
+      cancellato: { color: "bg-red-100 text-red-800", text: "Cancellato" },
     };
 
     const config = statusConfig[status];
@@ -219,7 +219,7 @@ const Trips: React.FC = () => {
               <EyeIcon className="w-5 h-5" />
             </button>
 
-            {trip.status === "upcoming" && (
+            {trip.status === "imminente" && (
               <button
                 onClick={() => handleCancelTrip(trip.id)}
                 className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
@@ -373,9 +373,9 @@ const Trips: React.FC = () => {
                 >
                   {filter === "all"
                     ? "Tutti"
-                    : filter === "upcoming"
+                    : filter === "imminente"
                     ? "Prossimi"
-                    : filter === "completed"
+                    : filter === "completato"
                     ? "Completati"
                     : "Cancellati"}
                 </button>

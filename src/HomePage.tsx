@@ -228,7 +228,15 @@ const HomePage: React.FC = () => {
               <div className="flex justify-around items-center">
                 <button
                   className="p-3 bg-sky-200 rounded-xl hover:bg-sky-300 transition-all"
-                  onClick={() => navigate("/product")}
+                  onClick={() => {
+                    const currentProduct = products[currentDestination];
+                    navigate("/app", {
+                      state: {
+                        highlightProductId: currentProduct?.id,
+                        scrollToProduct: true,
+                      },
+                    });
+                  }}
                 >
                   <span className="text-sky-900">Scopri di più!</span>
                 </button>

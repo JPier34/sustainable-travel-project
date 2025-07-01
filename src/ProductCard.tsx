@@ -21,6 +21,7 @@ import {
 interface ProductCardProps<T = object> {
   product: Product<T>;
   isBuying: boolean;
+  isHighlighted?: boolean;
   onBuy: (product: Product<T>) => void;
 }
 
@@ -28,6 +29,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   isBuying,
   product,
   onBuy,
+  isHighlighted = false,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -240,10 +242,23 @@ const ProductCard: React.FC<ProductCardProps> = ({
     ),
   };
 
+  const containerClasses = `
+    font-['Inter'] mb-8 rounded-2xl bg-gradient-to-b from-white to-zinc-50 shadow-lg shadow-gray-100
+    ${isHighlighted ? "highlighted-product" : ""}
+  `;
+
+  const cardClasses = `
+    group relative w-full max-w-4xl mx-auto rounded-2xl shadow-lg shadow-emerald-100 hover:shadow-xl hover:shadow-emerald-300/40 transition-all duration-500 overflow-hidden
+    ${isHighlighted ? "product-card" : ""}
+  `;
+
   return (
-    <div className="font-['Inter'] mb-8 rounded-2xl bg-gradient-to-b from-white to-zinc-50 shadow-lg shadow-gray-100">
-      <div className="group relative w-full max-w-4xl mx-auto rounded-2xl shadow-lg shadow-emerald-100 hover:shadow-xl hover:shadow-emerald-300/40 transition-all duration-500 overflow-hidden">
-        {/* Badge */}
+    <div className={containerClasses}>
+      <div className={cardClasses}>
+        {/* Badge highlighted */}
+        {isHighlighted}
+
+        {/* Badge existent */}
         <div className="absolute top-4 left-4 z-20">
           <span className="px-3 py-1 bg-emerald-500 text-white text-sm font-semibold rounded-full shadow-lg">
             {product.badge}
@@ -407,7 +422,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     {tab === "itinerary" && "Itinerario"}
                     {tab === "sustainability" && "Sostenibilità"}
                     {tab === "accommodation" && "Alloggi"}
-                    {tab === "included" && "Incluso/Escluso"}
+                    {tab === "included" && "Dettagli"}
                   </button>
                 ))}
               </div>
