@@ -18,6 +18,7 @@ import Footer from "./Footer";
 import "./App.css";
 import ErrorModal from "./ErrorModal";
 import SustainabilityPillars from "./SustainabilityPillars";
+import { tripsStorage } from "./utils/tripsStorage";
 
 // Orizon main address  (testnet Sepolia)
 const TRAVEL_AGENT_ADDRESS = import.meta.env
@@ -171,12 +172,27 @@ const App: React.FC = () => {
         value: amountWei,
       });
 
+      const savedTrip = tripsStorage.save({
+        destination: product.title,
+        date: product.dates, // Esempio: "01.10-14.10" -> usa data di inizio
+        participants: 1, // Default, potresti aggiungere un form per questo
+        price: product.price.replace(" ETH", ""),
+        duration: (product.duration || "7 giorni").toString(),
+        transactionHash: tx,
+        image: product.image,
+        userAddress: address,
+        productId: product.id,
+      });
+
+      console.log("Viaggio salvato con successo:", savedTrip);
+
       // Save tx hash
       setTxHash(tx);
       navigate("/app/success", {
         state: {
           txHash: tx,
           boughtProduct: product,
+          savedTrip: savedTrip,
         },
       });
     } catch (error) {

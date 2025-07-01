@@ -17,6 +17,7 @@ import {
   Camera,
   Info,
 } from "lucide-react";
+import IPFSImage from "./IPFSImage";
 
 interface ProductCardProps<T = object> {
   product: Product<T>;
@@ -267,12 +268,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Image Gallery */}
         <div className="relative w-full h-64 sm:h-72 md:h-80 lg:h-96 overflow-hidden rounded-t-2xl bg-gray-100">
-          <img
-            src={allImages[activeImageIndex]}
+          <IPFSImage
+            src={allImages[activeImageIndex] || ""}
             alt={`${product.title} - Image ${activeImageIndex + 1}`}
-            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
-            loading="lazy"
-            draggable="false"
+            className="w-full h-full"
+            fallbackSrc="https://via.placeholder.com/800x600/10b981/ffffff?text=Destinazione+Sostenibile"
           />
 
           {/* Image Navigation */}

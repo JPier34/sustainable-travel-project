@@ -4,7 +4,13 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAccount } from "wagmi";
 
-const StickyHeader: React.FC = () => {
+interface StickyHeaderProps {
+  customHomeLink?: boolean;
+}
+
+const StickyHeader: React.FC<StickyHeaderProps> = ({
+  customHomeLink = false,
+}) => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -51,7 +57,10 @@ const StickyHeader: React.FC = () => {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo - Clickable to go back to home */}
-            <div>
+            <div
+              onClick={() => navigate(customHomeLink ? "/" : "/app")}
+              className="cursor-pointer hover:opacity-80 transition-opacity"
+            >
               <p className="text-2xl homepage-title font-bold text-emerald-600">
                 Orizon.
               </p>

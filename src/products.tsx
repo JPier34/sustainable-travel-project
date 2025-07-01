@@ -6,6 +6,7 @@ export type Product<T = object> = {
   originalPrice: string;
   slug?: string;
   dates: string; // "01.10-14.10", "01.09-07.09", etc.
+  duration?: number;
   rating: number; // 4.5, 4.8, etc.
   reviews: number; // 127, 89, etc.
   carbonOffset: string; // "100%", "120%", etc.
@@ -65,6 +66,7 @@ export const products: Product[] = [
     originalPrice: "0.0015 ETH",
     slug: "hawaii",
     dates: "01.10-14.10",
+    duration: 14,
     rating: 4.9,
     reviews: 127,
     carbonOffset: "100%",
@@ -285,6 +287,7 @@ export const products: Product[] = [
     originalPrice: "0.002 ETH",
     slug: "iceland",
     dates: "01.09-07.09",
+    duration: 7,
     rating: 4.8,
     reviews: 89,
     carbonOffset: "120%",
@@ -417,6 +420,7 @@ export const products: Product[] = [
     originalPrice: "0.0025 ETH",
     slug: "australia",
     dates: "01.11-10.11",
+    duration: 10,
     rating: 4.7,
     reviews: 156,
     carbonOffset: "85%",

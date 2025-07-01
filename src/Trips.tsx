@@ -8,8 +8,9 @@ import {
   ClockIcon,
   ChevronLeftIcon,
   EyeIcon,
-  TrashIcon,
 } from "@heroicons/react/24/outline";
+import StickyHeader from "./StickyHeader";
+import IPFSImage from "./IPFSImage";
 
 interface Trip {
   id: string;
@@ -18,7 +19,7 @@ interface Trip {
   participants: number;
   price: string;
   duration: string;
-  status: "imminente" | "completato" | "cancellato";
+  status: "prenotato" | "completato";
   transactionHash: string;
   bookingDate: string;
   image: string;
@@ -26,9 +27,7 @@ interface Trip {
 
 enum TripFilter {
   ALL = "all",
-  imminente = "imminente",
   completato = "completato",
-  cancellato = "cancellato",
 }
 
 const Trips: React.FC = () => {
@@ -40,57 +39,65 @@ const Trips: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<TripFilter>(TripFilter.ALL);
   const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null);
 
-  // Mock data per testing - sostituisci con chiamata blockchain
-  const mockTrips: Trip[] = [
-    {
-      id: "1",
-      destination: "Costa Rica Eco-Adventure",
-      date: "2025-08-15",
-      participants: 2,
-      price: "0.5",
-      duration: "7 giorni",
-      status: "imminente",
-      transactionHash: "0x1234567890abcdef1234567890abcdef12345678",
-      bookingDate: "2025-06-20",
-      image: "https://via.placeholder.com/300x200",
-    },
-    {
-      id: "2",
-      destination: "Patagonia Wildlife Trek",
-      date: "2025-03-10",
-      participants: 1,
-      price: "0.8",
-      duration: "10 giorni",
-      status: "completato",
-      transactionHash: "0xabcdef1234567890abcdef1234567890abcdef12",
-      bookingDate: "2025-01-15",
-      image: "https://via.placeholder.com/300x200",
-    },
-  ];
+  // Loads trips from localStorage
+  const loadTripsFromStorage = () => {
+    try {
+      const storedTrips = localStorage.getItem("userTrips");
+      if (storedTrips) {
+        const parsedTrips = JSON.parse(storedTrips);
+        return parsedTrips.filter(() => {
+          return true;
+        });
+      }
+      return [];
+    } catch (error) {
+      console.error("Errore nel caricare i viaggi:", error);
+      return [];
+    }
+  };
+
+  const determineStatus = (): "prenotato" | "completato" => {
+    try {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const travelDate = new Date();
+      travelDate.setHours(0, 0, 0, 0);
+
+      return travelDate <= today ? "completato" : "prenotato";
+    } catch {
+      // Fallback
+      return "prenotato";
+    }
+  };
 
   useEffect(() => {
     const fetchTrips = async () => {
       setLoading(true);
       try {
-        // TODO: Implementa chiamata al contratto per recuperare i viaggi
-        // const userTrips = await readContract({...});
+        if (isConnected && address) {
+          // Loads from localStorage
+          const userTrips = loadTripsFromStorage();
 
-        // Per ora usa mock data
-        setTimeout(() => {
-          setTrips(mockTrips);
-          setLoading(false);
-        }, 1000);
+          // Actualize status
+          const tripsWithStatus = userTrips.map((trip: any) => ({
+            ...trip,
+            status: determineStatus(),
+          }));
+
+          setTrips(tripsWithStatus);
+        } else {
+          setTrips([]);
+        }
       } catch (error) {
         console.error("Errore nel recuperare i viaggi:", error);
+        setTrips([]);
+      } finally {
         setLoading(false);
       }
     };
 
-    if (isConnected && address) {
-      fetchTrips();
-    } else {
-      setLoading(false);
-    }
+    fetchTrips();
   }, [isConnected, address]);
 
   // Filtra i viaggi in base al filtro attivo
@@ -101,9 +108,8 @@ const Trips: React.FC = () => {
 
   const getStatusBadge = (status: Trip["status"]) => {
     const statusConfig = {
-      imminente: { color: "bg-blue-100 text-blue-800", text: "Prossimo" },
+      prenotato: { color: "bg-blue-100 text-blue-800", text: "Prenotato" },
       completato: { color: "bg-green-100 text-green-800", text: "Completato" },
-      cancellato: { color: "bg-red-100 text-red-800", text: "Cancellato" },
     };
 
     const config = statusConfig[status];
@@ -117,28 +123,39 @@ const Trips: React.FC = () => {
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("it-IT", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
+    try {
+      console.log("Formatting date:", dateString); // Debug
+
+      const date = new Date(dateString);
+
+      // Verifica se la data è valida
+      if (isNaN(date.getTime())) {
+        console.warn("Invalid date for formatting:", dateString);
+        return dateString; // Restituisce la stringa originale se invalida
+      }
+
+      const formatted = date.toLocaleDateString("it-IT", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+
+      console.log("Formatted date:", formatted); // Debug
+      return formatted;
+    } catch (error) {
+      console.error("Error formatting date:", error);
+      return dateString; // Fallback if date is invalid
+    }
   };
 
   const handleViewDetails = (trip: Trip) => {
     setSelectedTrip(trip);
   };
 
-  const handleCancelTrip = async (tripId: string) => {
-    if (window.confirm("Sei sicuro di voler cancellare questo viaggio?")) {
-      // TODO: Implementa logica di cancellazione
-      console.log("Cancellazione viaggio:", tripId);
-    }
-  };
-
-  // Loading Skeleton
+  // Loading skeleton
   const TripCardSkeleton = () => (
     <div className="bg-white rounded-lg shadow-md overflow-hidden animate-pulse">
-      <div className="h-48 bg-gray-300"></div>
+      <div className="h-48 bg-gray-300 rounded-t-lg"></div>
       <div className="p-6">
         <div className="h-4 bg-gray-300 rounded w-3/4 mb-3"></div>
         <div className="h-3 bg-gray-300 rounded w-1/2 mb-4"></div>
@@ -150,7 +167,7 @@ const Trips: React.FC = () => {
     </div>
   );
 
-  // Empty State
+  // Empty state
   const EmptyState = () => (
     <div className="text-center py-12">
       <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -159,28 +176,31 @@ const Trips: React.FC = () => {
       <h3 className="text-lg font-medium text-gray-900 mb-2">
         {activeFilter === TripFilter.ALL
           ? "Nessun viaggio prenotato"
-          : `Nessun viaggio ${activeFilter}`}
+          : "Nessun viaggio completato"}
       </h3>
       <p className="text-gray-500 mb-6">
-        Inizia la tua avventura sostenibile esplorando le nostre destinazioni
+        {activeFilter === TripFilter.ALL
+          ? "Inizia la tua avventura sostenibile esplorando le nostre destinazioni"
+          : "I tuoi viaggi completati appariranno qui dopo la data di partenza"}
       </p>
       <button
         onClick={() => navigate("/app")}
-        className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+        className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 px-6 rounded-lg transition-colors"
       >
         Esplora Destinazioni
       </button>
     </div>
   );
 
-  // Trip Card Component
+  // Trip Card Component - WITHOUT cancellation
   const TripCard = ({ trip }: { trip: Trip }) => (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       <div className="relative">
-        <img
+        <IPFSImage
           src={trip.image}
           alt={trip.destination}
-          className="w-full h-48 object-cover"
+          className="w-full h-48"
+          fallbackSrc="https://via.placeholder.com/300x200/10b981/ffffff?text=Viaggio"
         />
         <div className="absolute top-3 right-3">
           {getStatusBadge(trip.status)}
@@ -208,7 +228,7 @@ const Trips: React.FC = () => {
         </div>
 
         <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-          <span className="font-bold text-green-600">{trip.price} ETH</span>
+          <span className="font-bold text-emerald-600">{trip.price} ETH</span>
 
           <div className="flex gap-2">
             <button
@@ -218,16 +238,6 @@ const Trips: React.FC = () => {
             >
               <EyeIcon className="w-5 h-5" />
             </button>
-
-            {trip.status === "imminente" && (
-              <button
-                onClick={() => handleCancelTrip(trip.id)}
-                className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                title="Cancella viaggio"
-              >
-                <TrashIcon className="w-5 h-5" />
-              </button>
-            )}
           </div>
         </div>
       </div>
@@ -248,16 +258,17 @@ const Trips: React.FC = () => {
               </h2>
               <button
                 onClick={() => setSelectedTrip(null)}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-gray-500 hover:text-gray-700 text-2xl leading-none"
               >
                 ✕
               </button>
             </div>
 
-            <img
+            <IPFSImage
               src={selectedTrip.image}
               alt={selectedTrip.destination}
-              className="w-full h-48 object-cover rounded-lg mb-4"
+              className="w-full h-48 rounded-lg mb-4"
+              fallbackSrc="https://via.placeholder.com/400x200/10b981/ffffff?text=Viaggio"
             />
 
             <div className="space-y-3">
@@ -266,6 +277,15 @@ const Trips: React.FC = () => {
                   Destinazione
                 </label>
                 <p className="text-gray-900">{selectedTrip.destination}</p>
+              </div>
+
+              <div>
+                <label className="text-sm font-medium text-gray-500">
+                  Stato
+                </label>
+                <p className="text-gray-900">
+                  {getStatusBadge(selectedTrip.status)}
+                </p>
               </div>
 
               <div>
@@ -289,14 +309,21 @@ const Trips: React.FC = () => {
                   Hash Transazione
                 </label>
                 <p className="text-gray-900 font-mono text-sm break-all">
-                  {selectedTrip.transactionHash}
+                  <a
+                    href={`https://sepolia.etherscan.io/tx/${selectedTrip.transactionHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 underline"
+                  >
+                    {selectedTrip.transactionHash}
+                  </a>
                 </p>
               </div>
 
               <div className="pt-3 border-t">
                 <div className="flex justify-between text-lg font-bold">
                   <span>Totale Pagato:</span>
-                  <span className="text-green-600">
+                  <span className="text-emerald-600">
                     {selectedTrip.price} ETH
                   </span>
                 </div>
@@ -308,103 +335,86 @@ const Trips: React.FC = () => {
     );
   };
 
-  if (!isConnected) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            Connetti il tuo Wallet
-          </h2>
-          <p className="text-gray-600 mb-6">
-            Devi connettere il wallet per visualizzare i tuoi viaggi
-          </p>
-          <button
-            onClick={() => navigate("/app")}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg"
-          >
-            Connetti Wallet
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <button
-                onClick={() => navigate("/app")}
-                className="mr-4 p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg"
-              >
-                <ChevronLeftIcon className="w-5 h-5" />
-              </button>
-              <h1 className="text-2xl font-bold text-gray-900">
-                I Miei Viaggi
-              </h1>
-            </div>
+      {/* Custom StickyHeader for Trips */}
+      <StickyHeader />
 
-            {trips.length > 0 && (
-              <span className="text-sm text-gray-500">
-                {filteredTrips.length} di {trips.length} viaggi
-              </span>
-            )}
+      <div className="pt-20">
+        {/* Header with custom navigation */}
+        <div className="bg-white shadow-sm">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <button
+                  onClick={() => navigate("/app")}
+                  className="mr-4 p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <ChevronLeftIcon className="w-5 h-5" />
+                </button>
+                <h1 className="text-2xl font-bold text-gray-900">
+                  I Miei Viaggi
+                </h1>
+              </div>
+
+              {/* New: Home button */}
+              <div className="flex items-center gap-4">
+                {trips.length > 0}
+
+                <button
+                  onClick={() => navigate("/app")}
+                  className="px-4 py-2 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg transition-colors font-medium"
+                >
+                  Home
+                </button>
+              </div>
+            </div>
           </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* Filters - WITHOUT cancelled */}
+          {trips.length > 0 && (
+            <div className="mb-8">
+              <div className="flex flex-wrap gap-2">
+                {Object.values(TripFilter).map((filter) => (
+                  <button
+                    key={filter}
+                    onClick={() => setActiveFilter(filter)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      activeFilter === filter
+                        ? "bg-emerald-600 text-white"
+                        : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-300"
+                    }`}
+                  >
+                    {filter === "all" ? "Tutti" : "Completati"}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Content */}
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {Array(3)
+                .fill(0)
+                .map((_, i) => (
+                  <TripCardSkeleton key={i} />
+                ))}
+            </div>
+          ) : filteredTrips.length === 0 ? (
+            <EmptyState />
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredTrips.map((trip) => (
+                <TripCard key={trip.id} trip={trip} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Filtri */}
-        {trips.length > 0 && (
-          <div className="mb-8">
-            <div className="flex flex-wrap gap-2">
-              {Object.values(TripFilter).map((filter) => (
-                <button
-                  key={filter}
-                  onClick={() => setActiveFilter(filter)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    activeFilter === filter
-                      ? "bg-blue-600 text-white"
-                      : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-300"
-                  }`}
-                >
-                  {filter === "all"
-                    ? "Tutti"
-                    : filter === "imminente"
-                    ? "Prossimi"
-                    : filter === "completato"
-                    ? "Completati"
-                    : "Cancellati"}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Content */}
-        {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Array(3)
-              .fill(0)
-              .map((_, i) => (
-                <TripCardSkeleton key={i} />
-              ))}
-          </div>
-        ) : filteredTrips.length === 0 ? (
-          <EmptyState />
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredTrips.map((trip) => (
-              <TripCard key={trip.id} trip={trip} />
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Modal */}
       <TripDetailModal />
     </div>
   );

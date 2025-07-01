@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { WagmiProvider, http } from "wagmi";
+import { WagmiProvider, http, createStorage } from "wagmi";
 import { sepolia } from "wagmi/chains";
 import { RainbowKitProvider, getDefaultConfig } from "@rainbow-me/rainbowkit";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -23,6 +23,9 @@ const config = getDefaultConfig({
     [sepolia.id]: http(),
   },
   ssr: false,
+  storage: createStorage({
+    storage: localStorage,
+  }),
 });
 
 const queryClient = new QueryClient();
@@ -34,7 +37,7 @@ if (!rootElement) {
 
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <WagmiProvider config={config} reconnectOnMount={false}>
+    <WagmiProvider config={config} reconnectOnMount={true}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider modalSize="compact">
           <BrowserRouter>
