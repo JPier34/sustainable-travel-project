@@ -50,7 +50,7 @@
 }
 
 .highlighted-product-container {
-  animation: gentleFloat 2s ease-in-out !important;
+  animation: gentleFloat 4s ease-in-out !important;
 }
 
 .highlighted-product .product-card {
