@@ -1,4 +1,3 @@
-// utils/tripsStorage.ts
 export interface StoredTrip {
   id: string;
   destination: string;

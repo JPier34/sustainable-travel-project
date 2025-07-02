@@ -28,7 +28,6 @@ if (!TRAVEL_AGENT_ADDRESS || !ethers.isAddress(TRAVEL_AGENT_ADDRESS)) {
 }
 
 // Orizon address (test) (on Sepolia)
-
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const App: React.FC = () => {
@@ -174,8 +173,8 @@ const App: React.FC = () => {
 
       const savedTrip = tripsStorage.save({
         destination: product.title,
-        date: product.dates, // Esempio: "01.10-14.10" -> usa data di inizio
-        participants: 1, // Default, potresti aggiungere un form per questo
+        date: product.dates,
+        participants: 1,
         price: product.price.replace(" ETH", ""),
         duration: (product.duration || "7 giorni").toString(),
         transactionHash: tx,

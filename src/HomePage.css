@@ -315,7 +315,7 @@
   box-shadow: 0 8px 50px 0 rgba(17, 34, 17, 0.01);
   padding: 64px 90px;
   margin-left: 90px;
-  top: 3.5rem;
+  top: 2.5rem;
 
   @media (max-width: 1024px) {
     padding: 32px 48px;
@@ -456,7 +456,7 @@
   font-weight: 500;
 }
 
-/* Animazioni */
+/* Animations */
 @keyframes bounce {
   0%,
   100% {

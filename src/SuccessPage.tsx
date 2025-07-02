@@ -9,7 +9,6 @@ const SuccessPage = () => {
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      // Toast notification (?)
       console.log("Hash copiato negli appunti!");
     } catch (err) {
       console.error("Errore nel copiare:", err);
