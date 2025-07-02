@@ -81,7 +81,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           >
             {showFullItinerary
               ? "Mostra meno"
-              : `+ altri ${product.itinerary.length - 3} giorni...`}
+              : `+ altri ${product.itinerary.length - 3} giorni`}
           </button>
         )}
       </div>

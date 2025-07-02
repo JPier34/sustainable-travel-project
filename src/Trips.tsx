@@ -56,15 +56,15 @@ const Trips: React.FC = () => {
     }
   };
 
-  const determineStatus = (): "prenotato" | "completato" => {
+  const determineStatus = (travelDate: string): "prenotato" | "completato" => {
     try {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
 
-      const travelDate = new Date();
-      travelDate.setHours(0, 0, 0, 0);
+      const travel = new Date(travelDate);
+      travel.setHours(0, 0, 0, 0);
 
-      return travelDate <= today ? "completato" : "prenotato";
+      return travel <= today ? "completato" : "prenotato";
     } catch {
       // Fallback
       return "prenotato";
@@ -82,7 +82,7 @@ const Trips: React.FC = () => {
           // Actualize status
           const tripsWithStatus = userTrips.map((trip: any) => ({
             ...trip,
-            status: determineStatus(),
+            status: determineStatus(trip.date),
           }));
 
           setTrips(tripsWithStatus);
@@ -100,7 +100,7 @@ const Trips: React.FC = () => {
     fetchTrips();
   }, [isConnected, address]);
 
-  // Filtra i viaggi in base al filtro attivo
+  // FIlter trips
   const filteredTrips = trips.filter((trip) => {
     if (activeFilter === TripFilter.ALL) return true;
     return trip.status === activeFilter;
@@ -124,14 +124,12 @@ const Trips: React.FC = () => {
 
   const formatDate = (dateString: string) => {
     try {
-      console.log("Formatting date:", dateString); // Debug
-
       const date = new Date(dateString);
 
-      // Verifica se la data è valida
+      // Verifying date
       if (isNaN(date.getTime())) {
         console.warn("Invalid date for formatting:", dateString);
-        return dateString; // Restituisce la stringa originale se invalida
+        return dateString; // Return the original string if invalid
       }
 
       const formatted = date.toLocaleDateString("it-IT", {
@@ -140,7 +138,6 @@ const Trips: React.FC = () => {
         year: "numeric",
       });
 
-      console.log("Formatted date:", formatted); // Debug
       return formatted;
     } catch (error) {
       console.error("Error formatting date:", error);
@@ -192,7 +189,7 @@ const Trips: React.FC = () => {
     </div>
   );
 
-  // Trip Card Component - WITHOUT cancellation
+  // Trip Card Component - WITHOUT cancellation (for the moment)
   const TripCard = ({ trip }: { trip: Trip }) => (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       <div className="relative">
@@ -219,7 +216,7 @@ const Trips: React.FC = () => {
           </div>
           <div className="flex items-center text-sm text-gray-600">
             <ClockIcon className="w-4 h-4 mr-2" />
-            {trip.duration}
+            {trip.duration} giorni
           </div>
           <div className="flex items-center text-sm text-gray-600">
             <UsersIcon className="w-4 h-4 mr-2" />

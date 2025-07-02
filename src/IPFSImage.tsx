@@ -18,30 +18,30 @@ const IPFSImage: React.FC<IPFSImageProps> = ({
   const [hasError, setHasError] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
 
-  // Ottimizza URL IPFS con gateway più veloci
+  // Optimize URL IPFS with faster gateways
   const optimizeIPFSUrl = (ipfsUrl: string): string => {
     if (!ipfsUrl || ipfsUrl.trim() === "") {
       return fallbackSrc || "";
     }
 
-    // Se è già un URL normale, restituiscilo
+    // If already a normal URL, return it
     if (ipfsUrl.startsWith("http") && !ipfsUrl.includes("ipfs.io")) {
       return ipfsUrl;
     }
 
-    // Estrai l'hash IPFS
+    // Get IPFS hash
     let hash: string = ipfsUrl;
     if (ipfsUrl.includes("/ipfs/")) {
       const parts = ipfsUrl.split("/ipfs/");
-      hash = parts[1] || ""; // ← Fallback a stringa vuota
+      hash = parts[1] || ""; // Fallback (empty string)
     }
 
-    // Se non c'è hash valido, usa fallback
+    // If no valid hash, use fallback
     if (!hash || hash.trim() === "") {
       return fallbackSrc || "";
     }
 
-    // Gateway IPFS in ordine di velocità
+    // Gateway IPFS based on speed priority
     const gateways = [
       `https://cloudflare-ipfs.com/ipfs/${hash}`,
       `https://gateway.pinata.cloud/ipfs/${hash}`,
@@ -58,12 +58,12 @@ const IPFSImage: React.FC<IPFSImageProps> = ({
       setIsLoading(true);
       setHasError(false);
     } else if (fallbackSrc) {
-      // Se src è vuoto ma abbiamo fallback, usalo direttamente
+      // If empty src but we have a fallback, use it
       setCurrentSrc(fallbackSrc);
       setIsLoading(true);
       setHasError(false);
     } else {
-      // Nessuna immagine disponibile
+      // No image available
       setHasError(true);
       setIsLoading(false);
     }
@@ -78,14 +78,14 @@ const IPFSImage: React.FC<IPFSImageProps> = ({
     console.log(`IPFS load error for ${currentSrc}, retry ${retryCount + 1}`);
 
     if (retryCount < 3) {
-      // Prova il prossimo gateway
+      // Try next gateway
       setRetryCount((prev) => prev + 1);
     } else if (fallbackSrc) {
-      // Usa immagine di fallback se disponibile
+      // Use fallback image if available
       setCurrentSrc(fallbackSrc);
       setRetryCount(0);
     } else {
-      // Mostra errore
+      // Show error
       setHasError(true);
       setIsLoading(false);
     }
@@ -100,7 +100,7 @@ const IPFSImage: React.FC<IPFSImageProps> = ({
         </div>
       )}
 
-      {/* Immagine principale */}
+      {/* Main Image */}
       {currentSrc && !hasError && (
         <img
           src={currentSrc}
@@ -116,7 +116,7 @@ const IPFSImage: React.FC<IPFSImageProps> = ({
         />
       )}
 
-      {/* Stato di errore */}
+      {/* Error state */}
       {hasError && (
         <div className="absolute inset-0 bg-gray-100 flex flex-col items-center justify-center">
           <div className="text-gray-400 text-4xl mb-2">🖼️</div>
@@ -135,7 +135,7 @@ const IPFSImage: React.FC<IPFSImageProps> = ({
         </div>
       )}
 
-      {/* Indicatore di caricamento */}
+      {/* Loading indicator */}
       {isLoading && !hasError && (
         <div className="absolute bottom-2 right-2">
           <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin opacity-75" />
